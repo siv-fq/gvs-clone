@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-inter: var(--font-inter);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+}
+
+footer {
+  background-image:
+    url(https://greenvanservices.com/static/img/v2/leaves-pattern.png),
+    linear-gradient(94.85deg, rgb(81, 191, 166) 0%, rgb(33, 94, 76) 100%);
+}
