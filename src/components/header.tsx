@@ -7,7 +7,7 @@ export default function Header() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white">
+    <header className="bg-transparent  md:absolute">
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
@@ -26,7 +26,9 @@ export default function Header() {
                 fill="#327F6B"
               ></path>
             </svg>
-            <span className="ml-2 font-bold text-2xl text-black">Greenvan</span>
+            <span className="ml-2 font-extrabold text-2xl text-black">
+              Greenvan
+            </span>
           </a>
         </div>
         <div className="flex md:hidden">
@@ -46,7 +48,7 @@ export default function Header() {
           className={`${
             isMobileMenuOpen ? "" : "hidden md:flex"
           } shadow-sm shadow-gray-600 absolute right-[19px] top-[20px] p-[30px] bg-white flex flex-col min-w-[150px] rounded-[5px] 
-            md:static md:shadow-none md:right-auto md:top-auto md:p-0 md:bg-transparent md:flex-row md:gap-x-4  md:min-w-0 md:rounded-none`}
+            md:static md:shadow-none md:right-auto md:top-auto md:p-0 md:bg-transparent md:flex-row md:gap-x-5  md:min-w-0 md:rounded-none`}
         >
           <X
             aria-hidden="true"
@@ -55,19 +57,19 @@ export default function Header() {
           />
           <a
             href="/about-us"
-            className="text-sm/6 my-1 md:my-0 font-medium text-gray-900"
+            className="text-base/6  my-1 md:my-0 font-medium text-gray-900"
           >
             About Us
           </a>
           <a
             href="/our-impact"
-            className="text-sm/6 my-1 md:my-0 font-medium text-gray-900"
+            className="text-base/6 my-1 md:my-0 font-medium text-gray-900"
           >
             Our Impact
           </a>
           <a
             href="/careers"
-            className="text-sm/6 my-1 md:my-0 font-medium text-gray-900"
+            className="text-base/6 my-1 md:my-0 font-medium text-gray-900"
           >
             Careers
           </a>

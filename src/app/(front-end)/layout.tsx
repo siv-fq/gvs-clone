@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
@@ -12,6 +12,16 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Greenvan Services",
   description: "Greenvan Services",
+  icons: {
+    icon: "/greenvan-logo.svg",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

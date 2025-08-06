@@ -39,17 +39,19 @@ export default function Footer() {
                     fill="#ffffff"
                   ></path>
                 </svg>
-                <span className="ml-2 text-2xl font-bold">Greenvan</span>
+                <span className="ml-2 text-2xl font-extrabold">Greenvan</span>
               </a>
             </div>
-            <p>contact@greenvanservices.com</p>
+            <p className="text-base text-lightWhite">
+              contact@greenvanservices.com
+            </p>
           </div>
           <div className="flex flex-col sm:flex-row w-full lg:w-4/6 gap-6">
             <div className="w-full sm:w-1/3">
               <ul role="list" className="space-y-2">
                 {navigation.company.map((item) => (
                   <li key={item.name}>
-                    <a href={item.href} className="text-sm/6">
+                    <a href={item.href} className="text-base/6">
                       {item.name}
                     </a>
                   </li>
@@ -60,7 +62,7 @@ export default function Footer() {
               <ul role="list" className="space-y-2">
                 {navigation.legal.map((item) => (
                   <li key={item.name}>
-                    <a href={item.href} className="text-sm/6">
+                    <a href={item.href} className="text-base/6">
                       {item.name}
                     </a>
                   </li>
@@ -71,7 +73,7 @@ export default function Footer() {
               <ul role="list" className="space-y-2">
                 {navigation.customer.map((item) => (
                   <li key={item.name}>
-                    <a href={item.href} className="text-sm/6">
+                    <a href={item.href} className="text-base/6">
                       {item.name}
                     </a>
                   </li>
@@ -81,8 +83,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white pt-8">
-          <p className="text-sm/6 text-center">
+        <div className="mt-12 border-t border-lightWhite pt-8">
+          <p className="text-base/6 text-center text-lightWhite">
             &copy; 2025 Greenvan. All Rights Reserved.
           </p>
         </div>
