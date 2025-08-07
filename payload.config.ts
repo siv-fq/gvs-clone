@@ -47,10 +47,6 @@ export default buildConfig({
         media: {
           disableLocalStorage: true,
           generateFileURL: ({ filename }) => {
-            console.log(
-              "Blob storage Url:",
-              `${process.env.BLOB_BASE_URL}/${filename}`
-            );
             return `${process.env.BLOB_BASE_URL}/${filename}`;
           },
         },

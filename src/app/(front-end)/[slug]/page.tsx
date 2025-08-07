@@ -34,7 +34,7 @@ export default async function LandingPage({
 
   return (
     <div className="">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+      <main className="flex flex-col row-start-2 items-center sm:items-start">
         {isDraft && <RefreshRouteOnSave />}
         {page.blocks?.length ? <RenderBlocks blocks={page.blocks} /> : null}
       </main>

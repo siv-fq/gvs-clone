@@ -69,7 +69,6 @@ export const Blogs: CollectionConfig = {
       name: "author",
       type: "relationship",
       relationTo: "authors",
-      required: true,
       admin: {
         placeholder: "Select an author",
       },

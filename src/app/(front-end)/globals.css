@@ -11,6 +11,7 @@
   --color-lightText: #6b7280;
   --color-darkText: #3f3d56;
   --color-lightWhite: #ffffffb3;
+  --color-grayGreen: #f7fcfc;
 }
 
 body {
@@ -51,6 +52,7 @@ footer {
   background-repeat: no-repeat;
   background-position: right center;
 }
+
 @media (min-width: 1440px) {
   .bg-green-triangle {
     background-size: 150vh;
@@ -58,7 +60,7 @@ footer {
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .bg-green-triangle {
-    background-position: 150% 99%;
+    background-position: 150% 101%;
   }
 }
 @media only screen and (max-width: 767px) {

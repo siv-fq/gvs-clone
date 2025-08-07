@@ -140,7 +140,7 @@ export interface Blog {
   slug: string;
   publishedDate?: string | null;
   featuredImage?: (number | null) | Media;
-  author: number | Author;
+  author?: (number | null) | Author;
   content: {
     root: {
       type: string;
@@ -277,8 +277,11 @@ export interface Page {
             blockType: 'relatedContent';
           }
         | {
-            alignment: 'left' | 'right';
             superHeading?: string | null;
+            blockStyle: 'twoColumn' | 'hero' | 'contentOnly';
+            alignment?: ('left' | 'right') | null;
+            alignmentContentOnly?: ('left' | 'center') | null;
+            bgColor: 'white' | 'grayGreen';
             content: {
               root: {
                 type: string;
@@ -305,7 +308,7 @@ export interface Page {
                   blockType: 'button';
                 }[]
               | null;
-            media: number | Media;
+            media?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'contentMedia';
@@ -607,8 +610,11 @@ export interface PagesSelect<T extends boolean = true> {
         contentMedia?:
           | T
           | {
-              alignment?: T;
               superHeading?: T;
+              blockStyle?: T;
+              alignment?: T;
+              alignmentContentOnly?: T;
+              bgColor?: T;
               content?: T;
               cta?:
                 | T

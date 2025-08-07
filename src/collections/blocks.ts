@@ -199,6 +199,30 @@ export const ContentMediaBlock: Block = {
       type: "row",
       fields: [
         {
+          name: "superHeading",
+          type: "text",
+          required: false,
+          label: "Eyebrow Heading",
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "blockStyle",
+          type: "select",
+          label: "Style",
+          required: true,
+          options: [
+            { label: "Two Column", value: "twoColumn" },
+            { label: "Hero", value: "hero" },
+            { label: "Content Only", value: "contentOnly" },
+          ],
+          defaultValue: "twoColumn",
+          admin: {
+            width: "20%",
+          },
+        },
+        {
           name: "alignment",
           type: "select",
           label: "Content Side",
@@ -209,16 +233,39 @@ export const ContentMediaBlock: Block = {
           ],
           defaultValue: "left",
           admin: {
-            width: "50%",
+            width: "20%",
+            condition: (_, siblingData) =>
+              siblingData.blockStyle !== "contentOnly",
           },
         },
         {
-          name: "superHeading",
-          type: "text",
-          required: false,
-          label: "Eyebrow Heading",
+          name: "alignmentContentOnly",
+          type: "select",
+          label: "Content Alignment",
+          required: true,
+          options: [
+            { label: "Left", value: "left" },
+            { label: "Center", value: "center" },
+          ],
+          defaultValue: "center",
           admin: {
-            width: "50%",
+            width: "20%",
+            condition: (_, siblingData) =>
+              siblingData.blockStyle === "contentOnly",
+          },
+        },
+        {
+          name: "bgColor",
+          type: "select",
+          label: "Bg Color",
+          required: true,
+          options: [
+            { label: "White", value: "white" },
+            { label: "graygreen", value: "grayGreen" },
+          ],
+          defaultValue: "white",
+          admin: {
+            width: "20%",
           },
         },
       ],
@@ -240,6 +287,9 @@ export const ContentMediaBlock: Block = {
       type: "upload",
       relationTo: "media",
       required: true,
+      admin: {
+        condition: (_, siblingData) => siblingData.blockStyle !== "contentOnly",
+      },
     },
   ],
 };

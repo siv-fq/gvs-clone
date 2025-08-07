@@ -5,13 +5,14 @@ type ContentMediaBlock = Extract<
   { blockType: "contentMedia" }
 >;
 
-type CTA = NonNullable<ContentMediaBlock["cta"]>[number];
+// type CTA = NonNullable<ContentMediaBlock["cta"]>[number];
+type CTA = Omit<NonNullable<ContentMediaBlock["cta"]>[number], "blockType">;
 
 export default function Button({ btn }: { btn: CTA }) {
   return (
     <a
       href={btn.link ? btn.link : ""}
-      className={`bg-${btn.style === "primary" ? "primary hover:bg-darkPrimary  text-white rounded-full" : "secondary"} py-2 pl-5 pr-9 relative group  cursor-pointer mt-2 inline-block w-auto text-center `}
+      className={`${btn.style === "primary" ? "bg-primary hover:bg-darkPrimary  text-white rounded-full" : "secondary"} py-2 pl-5 pr-9 relative group  cursor-pointer mt-2 inline-block w-auto text-center `}
       target={btn.newTab ? "_blank" : "_self"}
     >
       {btn.text}
