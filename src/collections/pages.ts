@@ -49,24 +49,50 @@ export const Pages: CollectionConfig = {
   },
   fields: [
     {
-      name: "title",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "slug",
-      type: "text",
-      required: true,
-      unique: true,
-    },
-    {
-      name: "publishedDate",
-      type: "date",
-    },
-    {
-      name: "featuredImage",
-      type: "upload",
-      relationTo: "media",
+      type: "row",
+      fields: [
+        {
+          name: "title",
+          type: "text",
+          required: true,
+          admin: {
+            width: "60%",
+          },
+        },
+        {
+          name: "slug",
+          type: "text",
+          required: true,
+          unique: true,
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "showHeaderOnLeft",
+          label: "Show Header on Left Side",
+          type: "checkbox",
+          defaultValue: false,
+          admin: {
+            width: "20%",
+          },
+        },
+        {
+          name: "featuredImage",
+          type: "upload",
+          relationTo: "media",
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "publishedDate",
+          type: "date",
+          admin: {
+            width: "40%",
+          },
+        },
+      ],
     },
     {
       name: "blocks",

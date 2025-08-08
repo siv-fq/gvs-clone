@@ -1,4 +1,5 @@
 import { RefreshRouteOnSave } from "@/components/payload/RefreshRouteOnSave";
+import Header from "@/components/header";
 import { notFound } from "next/navigation";
 import { RenderBlocks } from "@/components/blocks";
 import { getPayload } from "payload";
@@ -30,11 +31,17 @@ export default async function LandingPage({
   if (!page) return notFound();
 
   return (
-    <div className="">
-      <main className="flex flex-col row-start-2 items-center sm:items-start">
+    <>
+      <Header showHeaderOnLeft={page.showHeaderOnLeft} />
+      <main className={`flex flex-col row-start-2 items-center sm:items-start`}>
         {isDraft && <RefreshRouteOnSave />}
-        {page.blocks?.length ? <RenderBlocks blocks={page.blocks} /> : null}
+        {page.blocks?.length ? (
+          <RenderBlocks
+            blocks={page.blocks}
+            showHeaderOnLeft={page.showHeaderOnLeft}
+          />
+        ) : null}
       </main>
-    </div>
+    </>
   );
 }

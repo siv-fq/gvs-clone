@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const navigation = {
   company: [
     { name: "About Us", href: "#" },
@@ -26,7 +28,7 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="w-full lg:w-2/6">
             <div className="flex lg:flex-1 mr-7">
-              <a href="#" className="flex items-center">
+              <Link href="#" className="flex items-center">
                 <svg
                   width="30"
                   height="30"
@@ -40,7 +42,7 @@ export default function Footer() {
                   ></path>
                 </svg>
                 <span className="ml-2 text-2xl font-extrabold">Greenvan</span>
-              </a>
+              </Link>
             </div>
             <p className="text-base text-lightWhite">
               contact@greenvanservices.com
@@ -51,9 +53,9 @@ export default function Footer() {
               <ul role="list" className="space-y-2">
                 {navigation.company.map((item) => (
                   <li key={item.name}>
-                    <a href={item.href} className="text-base/6">
+                    <Link href={item.href} className="text-base/6 link">
                       {item.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -62,9 +64,9 @@ export default function Footer() {
               <ul role="list" className="space-y-2">
                 {navigation.legal.map((item) => (
                   <li key={item.name}>
-                    <a href={item.href} className="text-base/6">
+                    <Link href={item.href} className="text-base/6 link">
                       {item.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -73,9 +75,9 @@ export default function Footer() {
               <ul role="list" className="space-y-2">
                 {navigation.customer.map((item) => (
                   <li key={item.name}>
-                    <a href={item.href} className="text-base/6">
+                    <Link href={item.href} className="text-base/6 link">
                       {item.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>

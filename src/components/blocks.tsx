@@ -6,15 +6,24 @@ import ImageGrid from "@/components/image-grid";
 
 export function RenderBlocks({
   blocks,
+  showHeaderOnLeft,
 }: {
   blocks: NonNullable<Page["blocks"]>;
+  showHeaderOnLeft?: boolean | null;
 }) {
   return (
     <>
       {blocks.map((block, index) => {
         switch (block.blockType) {
           case "contentMedia":
-            return <ContentMedia block={block} key={index} />;
+            return (
+              <ContentMedia
+                block={block}
+                key={index}
+                blockPosition={index}
+                showHeaderOnLeft={showHeaderOnLeft}
+              />
+            );
           case "imageGrid":
             return <ImageGrid block={block} key={index} />;
           case "faqs":

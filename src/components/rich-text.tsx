@@ -78,9 +78,7 @@ const createJSXConverters =
     listitem: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children });
       return (
-        <li className={`mb-1 ${isAlignedCenter && "w-max mx-auto"}`}>
-          {children}
-        </li>
+        <li className={`mb-1 ${isAlignedCenter && "mx-auto"}`}>{children}</li>
       );
     },
 
@@ -94,7 +92,6 @@ const createJSXConverters =
     },
 
     horizontalrule: () => {
-      console.log("Custom HR converter called");
       return <hr className="my-2 border-t border-gray-600" />;
     },
   });
@@ -109,7 +106,7 @@ export default function RichTextRenderer({
   if (!content) return null;
   const converters = createJSXConverters(isAlignedCenter);
   return (
-    <div className="prose prose-lg max-w-none">
+    <div className="max-w-none">
       <RichText data={content} converters={converters} />
     </div>
   );

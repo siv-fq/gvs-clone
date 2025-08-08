@@ -1,53 +1,93 @@
 "use client";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { useState } from "react";
-import type { BlockContent } from "../../payload-types";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 
-export default function Faq({ block }: { block: BlockContent }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  if (block.blockType !== "faq") return null;
+import type { Page } from "../../payload-types";
+type FaqsBlock = Extract<
+  NonNullable<Page["blocks"]>[number],
+  { blockType: "faqs" }
+>;
+
+export default function Faq({ block }: { block: FaqsBlock }) {
+  const { description, heading, superHeading, bgColor, faqs } = block;
+
+  // Initialize all closed
+  const [openItems, setOpenItems] = useState<boolean[]>(
+    Array(faqs.length).fill(false)
+  );
+
+  const toggleItem = (index: number) => {
+    setOpenItems((prev) => {
+      const newState = [...prev];
+      newState[index] = !newState[index];
+      return newState;
+    });
+  };
+
   return (
-    <div id="faq" className="pt-10">
+    <section
+      className={`py-15 px-6 w-full ${bgColor == "grayGreen" ? "bg-grayGreen" : ""}`}
+    >
       <div className="mx-auto max-w-4xl">
-        <h2 className="text-2xl font-bold lg:text-3xl">
-          {block.title || "Frequently Asked Questions"}
-        </h2>
-        {block.description && (
-          <p className="mt-3 text-lg text-gray-600">{block.description}</p>
-        )}
-        <dl className="mt-10 divide-y divide-gray-400">
-          {block.faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-            return (
-              <div key={index} className="py-4">
-                <dt>
-                  <button
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="flex w-full cursor-pointer items-start justify-between text-left"
+        <div className="section-intro max-w-2xl mx-auto text-center">
+          {superHeading && (
+            <h3 className="text-base md:text-lg font-extrabold uppercase text-primary">
+              {superHeading}
+            </h3>
+          )}
+          {heading && (
+            <h2 className="text-3xl font-bold lg:text-4xl">{heading}</h2>
+          )}
+          {description && (
+            <p className="mt-3 text-lg md:text-xl text-gray-600">
+              {description}
+            </p>
+          )}
+        </div>
+
+        {faqs.length > 0 && (
+          <dl className="mt-10 divide-y divide-gray-400">
+            {faqs.map((faq, index) => {
+              const isOpen = openItems[index];
+              return (
+                <div
+                  key={index}
+                  className="py-4 px-3 border-t border-lightText"
+                >
+                  <dt>
+                    <button
+                      onClick={() => toggleItem(index)}
+                      className="flex w-full cursor-pointer items-start justify-between text-left"
+                    >
+                      <span className="text-lg leaf-style-list-item font-semibold">
+                        {faq.question}
+                      </span>
+                      <span className="ml-6 flex h-7 items-center">
+                        {isOpen ? (
+                          <Minus className="size-4" />
+                        ) : (
+                          <Plus className="size-4" />
+                        )}
+                      </span>
+                    </button>
+                  </dt>
+
+                  <dd
+                    className={`transition-all ease duration-300 overflow-hidden ${
+                      isOpen ? "max-h-[500px]" : "max-h-0"
+                    }`}
                   >
-                    <span className="text-lg font-semibold text-white">
-                      {faq.question}
-                    </span>
-                    <span className="ml-6 flex h-7 items-center">
-                      {isOpen ? (
-                        <ChevronUp className="size-6 text-white" />
-                      ) : (
-                        <ChevronDown className="size-6 text-white" />
-                      )}
-                    </span>
-                  </button>
-                </dt>
-                {isOpen && (
-                  <dd className="mt-3 pr-12 text-base text-white">
-                    <RichText data={faq.answer} />
+                    <div className="mt-3 pr-12 ">
+                      <RichText data={faq.answer} />
+                    </div>
                   </dd>
-                )}
-              </div>
-            );
-          })}
-        </dl>
+                </div>
+              );
+            })}
+          </dl>
+        )}
       </div>
-    </div>
+    </section>
   );
 }

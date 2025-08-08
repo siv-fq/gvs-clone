@@ -199,24 +199,42 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  publishedDate?: string | null;
+  showHeaderOnLeft?: boolean | null;
   featuredImage?: (number | null) | Media;
+  publishedDate?: string | null;
   blocks?:
     | (
         | {
-            heading: string;
+            superHeading?: string | null;
+            heading?: string | null;
+            bgColor: 'white' | 'grayGreen';
             description?: string | null;
+            columnsPerRow: '2' | '3' | '4' | '5';
             items: {
               title?: string | null;
+              content?: string | null;
               image: number | Media;
               id?: string | null;
             }[];
+            cta?:
+              | {
+                  text?: string | null;
+                  link?: string | null;
+                  style: 'primary' | 'secondary';
+                  newTab?: boolean | null;
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'button';
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'imageGrid';
           }
         | {
-            title: string;
+            superHeading?: string | null;
+            heading?: string | null;
+            bgColor: 'white' | 'grayGreen';
             description?: string | null;
             faqs: {
               question: string;
@@ -309,6 +327,7 @@ export interface Page {
                 }[]
               | null;
             media?: (number | null) | Media;
+            removeBottomSpace?: boolean | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'contentMedia';
@@ -548,22 +567,41 @@ export interface BlogsSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  publishedDate?: T;
+  showHeaderOnLeft?: T;
   featuredImage?: T;
+  publishedDate?: T;
   blocks?:
     | T
     | {
         imageGrid?:
           | T
           | {
+              superHeading?: T;
               heading?: T;
+              bgColor?: T;
               description?: T;
+              columnsPerRow?: T;
               items?:
                 | T
                 | {
                     title?: T;
+                    content?: T;
                     image?: T;
                     id?: T;
+                  };
+              cta?:
+                | T
+                | {
+                    button?:
+                      | T
+                      | {
+                          text?: T;
+                          link?: T;
+                          style?: T;
+                          newTab?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
                   };
               id?: T;
               blockName?: T;
@@ -571,7 +609,9 @@ export interface PagesSelect<T extends boolean = true> {
         faqs?:
           | T
           | {
-              title?: T;
+              superHeading?: T;
+              heading?: T;
+              bgColor?: T;
               description?: T;
               faqs?:
                 | T
@@ -631,6 +671,7 @@ export interface PagesSelect<T extends boolean = true> {
                         };
                   };
               media?: T;
+              removeBottomSpace?: T;
               id?: T;
               blockName?: T;
             };

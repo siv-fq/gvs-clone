@@ -1,4 +1,5 @@
 import type { Page } from "../../payload-types";
+import Link from "next/link";
 
 type ContentMediaBlock = Extract<
   NonNullable<Page["blocks"]>[number],
@@ -10,7 +11,7 @@ type CTA = Omit<NonNullable<ContentMediaBlock["cta"]>[number], "blockType">;
 
 export default function Button({ btn }: { btn: CTA }) {
   return (
-    <a
+    <Link
       href={btn.link ? btn.link : ""}
       className={`${btn.style === "primary" ? "bg-primary hover:bg-darkPrimary  text-white rounded-full" : "secondary"} py-2 pl-5 pr-9 relative group  cursor-pointer mt-2 inline-block w-auto text-center `}
       target={btn.newTab ? "_blank" : "_self"}
@@ -48,6 +49,6 @@ export default function Button({ btn }: { btn: CTA }) {
           strokeLinejoin="round"
         />
       </svg>
-    </a>
+    </Link>
   );
 }

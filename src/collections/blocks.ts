@@ -63,13 +63,63 @@ export const ImageGridBlock: Block = {
   imageURL: "/preview-images/image-grid.png",
   fields: [
     {
-      name: "heading",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "description",
-      type: "textarea",
+      type: "row",
+      fields: [
+        {
+          name: "superHeading",
+          type: "text",
+          required: false,
+          label: "Eyebrow Heading",
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "heading",
+          type: "text",
+          required: false,
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "bgColor",
+          type: "select",
+          label: "Bg Color",
+          required: true,
+          options: [
+            { label: "White", value: "white" },
+            { label: "graygreen", value: "grayGreen" },
+          ],
+          defaultValue: "white",
+          admin: {
+            width: "20%",
+          },
+        },
+        {
+          name: "description",
+          type: "textarea",
+          admin: {
+            width: "80%",
+          },
+        },
+        {
+          name: "columnsPerRow",
+          type: "select",
+          label: "columns Per Row",
+          required: true,
+          options: [
+            { label: "2 column", value: "2" },
+            { label: "3 column", value: "3" },
+            { label: "4 column", value: "4" },
+            { label: "5 column", value: "5" },
+          ],
+          defaultValue: "4",
+          admin: {
+            width: "20%",
+          },
+        },
+      ],
     },
     {
       name: "items",
@@ -83,6 +133,13 @@ export const ImageGridBlock: Block = {
             {
               name: "title",
               type: "text",
+              admin: {
+                width: "100%",
+              },
+            },
+            {
+              name: "content",
+              type: "textarea",
               admin: {
                 width: "50%",
               },
@@ -100,6 +157,13 @@ export const ImageGridBlock: Block = {
         },
       ],
     },
+    {
+      name: "cta",
+      type: "blocks",
+      label: "Call to Action",
+      blocks: [ButtonBlock],
+      maxRows: 1,
+    },
   ],
 };
 
@@ -108,13 +172,44 @@ export const FaqBlock: Block = {
   slug: "faqs",
   fields: [
     {
-      name: "title",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "description",
-      type: "textarea",
+      type: "row",
+      fields: [
+        {
+          name: "superHeading",
+          type: "text",
+          required: false,
+          label: "Eyebrow Heading",
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "heading",
+          type: "text",
+          required: false,
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "bgColor",
+          type: "select",
+          label: "Bg Color",
+          required: true,
+          options: [
+            { label: "White", value: "white" },
+            { label: "graygreen", value: "grayGreen" },
+          ],
+          defaultValue: "white",
+          admin: {
+            width: "20%",
+          },
+        },
+        {
+          name: "description",
+          type: "textarea",
+        },
+      ],
     },
     {
       name: "faqs",
@@ -290,6 +385,21 @@ export const ContentMediaBlock: Block = {
       admin: {
         condition: (_, siblingData) => siblingData.blockStyle !== "contentOnly",
       },
+    },
+    {
+      type: "row",
+      fields: [
+        {
+          name: "removeBottomSpace",
+          label: "Remove Spacing Below",
+          type: "checkbox",
+          defaultValue: false,
+          admin: {
+            width: "30%",
+            condition: (_, siblingData) => siblingData.blockStyle !== "hero",
+          },
+        },
+      ],
     },
   ],
 };

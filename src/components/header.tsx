@@ -2,12 +2,19 @@
 
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
-export default function Header() {
+export default function Header({
+  showHeaderOnLeft = false,
+}: {
+  showHeaderOnLeft?: boolean | null;
+}) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="bg-transparent  md:absolute">
+    <header
+      className={`bg-transparent  ${showHeaderOnLeft ? "md:absolute" : ""}`}
+    >
       <nav
         aria-label="Global"
         className="mx-auto flex max-w-7xl items-center justify-between p-6"
@@ -47,7 +54,7 @@ export default function Header() {
         <div
           className={`${
             isMobileMenuOpen ? "" : "hidden md:flex"
-          } shadow-sm shadow-gray-600 absolute right-[19px] top-[20px] p-[30px] bg-white flex flex-col min-w-[150px] rounded-[5px] 
+          } shadow-sm shadow-gray-600 absolute right-[19px] top-[23px] p-[30px] bg-white flex flex-col min-w-[150px] rounded-[5px] 
             md:static md:shadow-none md:right-auto md:top-auto md:p-0 md:bg-transparent md:flex-row md:gap-x-5  md:min-w-0 md:rounded-none`}
         >
           <X
@@ -55,24 +62,24 @@ export default function Header() {
             onClick={() => setMobileMenuOpen(false)}
             className="md:hidden size-6 text-black cursor-pointer absolute top-[5px] right-[5px]"
           />
-          <a
+          <Link
             href="/about-us"
-            className="text-base/6  my-1 md:my-0 font-medium text-gray-900"
+            className="text-base/6 link my-1 md:my-0 font-medium text-gray-900"
           >
             About Us
-          </a>
-          <a
+          </Link>
+          <Link
             href="/our-impact"
-            className="text-base/6 my-1 md:my-0 font-medium text-gray-900"
+            className="text-base/6 link my-1 md:my-0 font-medium text-gray-900"
           >
             Our Impact
-          </a>
-          <a
+          </Link>
+          <Link
             href="/careers"
-            className="text-base/6 my-1 md:my-0 font-medium text-gray-900"
+            className="text-base/6 link my-1 md:my-0 font-medium text-gray-900"
           >
             Careers
-          </a>
+          </Link>
         </div>
       </nav>
     </header>
