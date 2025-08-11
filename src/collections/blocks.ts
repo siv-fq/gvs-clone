@@ -71,7 +71,7 @@ export const ImageGridBlock: Block = {
           required: false,
           label: "Eyebrow Heading",
           admin: {
-            width: "40%",
+            width: "50%",
           },
         },
         {
@@ -79,28 +79,14 @@ export const ImageGridBlock: Block = {
           type: "text",
           required: false,
           admin: {
-            width: "40%",
-          },
-        },
-        {
-          name: "bgColor",
-          type: "select",
-          label: "Bg Color",
-          required: true,
-          options: [
-            { label: "White", value: "white" },
-            { label: "graygreen", value: "grayGreen" },
-          ],
-          defaultValue: "white",
-          admin: {
-            width: "20%",
+            width: "50%",
           },
         },
         {
           name: "description",
           type: "textarea",
           admin: {
-            width: "80%",
+            width: "100%",
           },
         },
         {
@@ -116,7 +102,50 @@ export const ImageGridBlock: Block = {
           ],
           defaultValue: "4",
           admin: {
-            width: "20%",
+            width: "25%",
+          },
+        },
+        {
+          name: "style",
+          type: "select",
+          label: "Grid style",
+          required: true,
+          options: [
+            { label: "Normal", value: "normal" },
+            { label: "Card", value: "card" },
+            { label: "Icon Grid", value: "icon" },
+          ],
+          defaultValue: "normal",
+          admin: {
+            width: "25%",
+          },
+        },
+        {
+          name: "alignment",
+          type: "select",
+          label: "alignment",
+          required: true,
+          options: [
+            { label: "Left", value: "left" },
+            { label: "Center", value: "center" },
+          ],
+          defaultValue: "left",
+          admin: {
+            width: "25%",
+          },
+        },
+        {
+          name: "bgColor",
+          type: "select",
+          label: "Bg Color",
+          required: true,
+          options: [
+            { label: "White", value: "white" },
+            { label: "graygreen", value: "grayGreen" },
+          ],
+          defaultValue: "white",
+          admin: {
+            width: "25%",
           },
         },
       ],
@@ -378,13 +407,77 @@ export const ContentMediaBlock: Block = {
       maxRows: 2,
     },
     {
-      name: "media",
-      type: "upload",
-      relationTo: "media",
-      required: true,
-      admin: {
-        condition: (_, siblingData) => siblingData.blockStyle !== "contentOnly",
-      },
+      type: "row",
+      fields: [
+        {
+          name: "mediaType",
+          type: "select",
+          label: "Media Type",
+          required: true,
+          options: [
+            { label: "Media", value: "media" },
+            { label: "Embedded Video", value: "embeddedVideo" },
+          ],
+          defaultValue: "media",
+          admin: {
+            width: "30%",
+          },
+        },
+        {
+          name: "media",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+          admin: {
+            condition: (_, siblingData) =>
+              siblingData.blockStyle !== "contentOnly" &&
+              siblingData.mediaType === "media",
+            width: "30%",
+          },
+        },
+        {
+          name: "videoLink",
+          type: "text",
+          label: "Video Link",
+          required: true,
+          admin: {
+            condition: (_, siblingData) =>
+              siblingData.blockStyle !== "contentOnly" &&
+              siblingData.mediaType === "embeddedVideo",
+            width: "35%",
+          },
+        },
+        {
+          name: "videoCoverImage",
+          type: "upload",
+          relationTo: "media",
+          label: "Video Cover Image",
+          required: true,
+          admin: {
+            condition: (_, siblingData) =>
+              siblingData.blockStyle !== "contentOnly" &&
+              siblingData.mediaType === "embeddedVideo",
+            width: "35%",
+          },
+        },
+        {
+          name: "imageStyle",
+          type: "select",
+          label: "Image Style",
+          required: true,
+          options: [
+            { label: "Normal", value: "normal" },
+            { label: "Card", value: "card" },
+          ],
+          defaultValue: "normal",
+          admin: {
+            condition: (_, siblingData) =>
+              siblingData.blockStyle !== "contentOnly" &&
+              siblingData.mediaType === "media",
+            width: "30%",
+          },
+        },
+      ],
     },
     {
       type: "row",

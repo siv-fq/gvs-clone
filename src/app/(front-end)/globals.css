@@ -27,7 +27,8 @@ footer {
     linear-gradient(94.85deg, rgb(81, 191, 166) 0%, rgb(33, 94, 76) 100%);
 }
 
-a.link:hover {
+a.link:hover,
+a.secondary-btn:hover {
   text-decoration: underline;
 }
 

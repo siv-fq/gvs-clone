@@ -1,5 +1,6 @@
 import type { Page } from "../../payload-types";
 import Link from "next/link";
+import clsx from "clsx";
 
 type ContentMediaBlock = Extract<
   NonNullable<Page["blocks"]>[number],
@@ -10,10 +11,17 @@ type ContentMediaBlock = Extract<
 type CTA = Omit<NonNullable<ContentMediaBlock["cta"]>[number], "blockType">;
 
 export default function Button({ btn }: { btn: CTA }) {
+  const btnClass = clsx(
+    "py-2 pr-9 relative group cursor-pointer inline-block w-auto text-center font-medium",
+    btn.style === "primary"
+      ? "bg-primary hover:bg-darkPrimary text-white mt-2 rounded-full pl-5 primary-btn"
+      : "secondary-btn text-lg leading-[1.3]"
+  );
+
   return (
     <Link
       href={btn.link ? btn.link : ""}
-      className={`${btn.style === "primary" ? "bg-primary hover:bg-darkPrimary  text-white rounded-full" : "secondary"} py-2 pl-5 pr-9 relative group  cursor-pointer mt-2 inline-block w-auto text-center `}
+      className={btnClass}
       target={btn.newTab ? "_blank" : "_self"}
     >
       {btn.text}

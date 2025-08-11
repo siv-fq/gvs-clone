@@ -1,5 +1,6 @@
 import Button from "@/components/button";
 import Image from "next/image";
+import Header from "@/components/header";
 
 export default function NotFound() {
   const cta = {
@@ -10,7 +11,8 @@ export default function NotFound() {
   } as const;
 
   return (
-    <div className="">
+    <>
+      <Header />
       <main className="flex flex-col row-start-2 items-center sm:items-start">
         <section className="w-full px-6 py-10">
           <div className="max-w-5xl px-6 lg:px-8 mx-auto flex flex-col md:items-center gap-6 md:flex-row md:py-20">
@@ -44,6 +46,6 @@ export default function NotFound() {
           </div>
         </section>
       </main>
-    </div>
+    </>
   );
 }

@@ -207,9 +207,11 @@ export interface Page {
         | {
             superHeading?: string | null;
             heading?: string | null;
-            bgColor: 'white' | 'grayGreen';
             description?: string | null;
             columnsPerRow: '2' | '3' | '4' | '5';
+            style: 'normal' | 'card' | 'icon';
+            alignment: 'left' | 'center';
+            bgColor: 'white' | 'grayGreen';
             items: {
               title?: string | null;
               content?: string | null;
@@ -326,7 +328,11 @@ export interface Page {
                   blockType: 'button';
                 }[]
               | null;
+            mediaType: 'media' | 'embeddedVideo';
             media?: (number | null) | Media;
+            videoLink?: string | null;
+            videoCoverImage?: (number | null) | Media;
+            imageStyle?: ('normal' | 'card') | null;
             removeBottomSpace?: boolean | null;
             id?: string | null;
             blockName?: string | null;
@@ -578,9 +584,11 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               superHeading?: T;
               heading?: T;
-              bgColor?: T;
               description?: T;
               columnsPerRow?: T;
+              style?: T;
+              alignment?: T;
+              bgColor?: T;
               items?:
                 | T
                 | {
@@ -670,7 +678,11 @@ export interface PagesSelect<T extends boolean = true> {
                           blockName?: T;
                         };
                   };
+              mediaType?: T;
               media?: T;
+              videoLink?: T;
+              videoCoverImage?: T;
+              imageStyle?: T;
               removeBottomSpace?: T;
               id?: T;
               blockName?: T;

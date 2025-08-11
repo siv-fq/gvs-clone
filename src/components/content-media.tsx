@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Button from "@/components/button";
 import RichTextComponent from "@/components/rich-text";
+import VideoEmbed from "@/components/video-embed";
+import clsx from "clsx";
 
 import type { Page, Media } from "../../payload-types";
 type ContentMediaBlock = Extract<
@@ -20,7 +22,11 @@ export default function ContentMedia({
   const {
     blockStyle,
     content,
+    mediaType,
     media,
+    videoLink,
+    videoCoverImage,
+    imageStyle,
     alignment,
     alignmentContentOnly,
     bgColor,
@@ -29,6 +35,7 @@ export default function ContentMedia({
     cta,
   } = block;
   const image = media as Media;
+  const coverImage = videoCoverImage as Media;
   const isImageLeft = alignment === "left";
   const contentIsAlignedCenter =
     alignmentContentOnly == "center" && blockStyle == "contentOnly";
@@ -66,7 +73,7 @@ export default function ContentMedia({
           )}
         </div>
 
-        {blockStyle != "contentOnly" && (
+        {blockStyle != "contentOnly" && mediaType == "media" && (
           <div className="flex-1">
             {image?.url && (
               <Image
@@ -74,9 +81,23 @@ export default function ContentMedia({
                 alt={image.alt || "Content Media"}
                 width={image.width || 500}
                 height={image.height || 340}
-                className={`ml-auto md:ml-0 ${blockStyle == "hero" ? "w-75  md:w-full" : "max-h-70 w-full object-cover mt-2 md:mt-0 p-3 bg-white border-3 border-lightGray rounded-xl"}`}
+                className={clsx(
+                  "ml-auto md:ml-0",
+                  blockStyle === "hero" ? "w-75 md:w-full" : "w-full px-5",
+                  imageStyle == "card" &&
+                    "max-h-70 object-cover mt-2 md:mt-0 p-3 bg-white border-3 border-lightGray rounded-xl"
+                )}
               />
             )}
+          </div>
+        )}
+        {blockStyle != "contentOnly" && mediaType == "embeddedVideo" && (
+          <div className="flex-1">
+            <VideoEmbed
+              coverImage={coverImage.url}
+              videoUrl={videoLink}
+              title={coverImage.alt || "Greenvan Embedded Video"}
+            />
           </div>
         )}
       </div>
