@@ -282,8 +282,22 @@ export interface Page {
             blockType: 'richText';
           }
         | {
-            heading: string;
+            superHeading?: string | null;
+            heading?: string | null;
+            bgColor: 'white' | 'grayGreen';
+            description?: string | null;
             selectedTestimonials: (number | Testimonial)[];
+            cta?:
+              | {
+                  text?: string | null;
+                  link?: string | null;
+                  style: 'primary' | 'secondary';
+                  newTab?: boolean | null;
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'button';
+                }[]
+              | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'testimonials';
@@ -328,12 +342,14 @@ export interface Page {
                   blockType: 'button';
                 }[]
               | null;
-            mediaType: 'media' | 'embeddedVideo';
+            mediaType: 'media' | 'embeddedVideo' | 'form' | 'none';
             media?: (number | null) | Media;
             videoLink?: string | null;
             videoCoverImage?: (number | null) | Media;
+            form?: ('none' | 'contactUs') | null;
             imageStyle?: ('normal' | 'card') | null;
             removeBottomSpace?: boolean | null;
+            selectedTestimonials?: (number | null) | Testimonial;
             id?: string | null;
             blockName?: string | null;
             blockType: 'contentMedia';
@@ -351,7 +367,7 @@ export interface Page {
 export interface Testimonial {
   id: number;
   name: string;
-  rating: '1' | '2' | '3' | '4' | '5';
+  rating: '4' | '5';
   feedback: string;
   updatedAt: string;
   createdAt: string;
@@ -641,8 +657,25 @@ export interface PagesSelect<T extends boolean = true> {
         testimonials?:
           | T
           | {
+              superHeading?: T;
               heading?: T;
+              bgColor?: T;
+              description?: T;
               selectedTestimonials?: T;
+              cta?:
+                | T
+                | {
+                    button?:
+                      | T
+                      | {
+                          text?: T;
+                          link?: T;
+                          style?: T;
+                          newTab?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                  };
               id?: T;
               blockName?: T;
             };
@@ -682,8 +715,10 @@ export interface PagesSelect<T extends boolean = true> {
               media?: T;
               videoLink?: T;
               videoCoverImage?: T;
+              form?: T;
               imageStyle?: T;
               removeBottomSpace?: T;
+              selectedTestimonials?: T;
               id?: T;
               blockName?: T;
             };

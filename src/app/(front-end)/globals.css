@@ -27,6 +27,14 @@ footer {
     linear-gradient(94.85deg, rgb(81, 191, 166) 0%, rgb(33, 94, 76) 100%);
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+
 a.link:hover,
 a.secondary-btn:hover {
   text-decoration: underline;
@@ -40,6 +48,7 @@ a.secondary-btn:hover {
 .leaf-style-list-item {
   position: relative;
   padding-left: 30px;
+  list-style: none;
 }
 .leaf-style-list li::before,
 .leaf-style-list-item:before {

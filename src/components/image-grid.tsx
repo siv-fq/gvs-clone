@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Button from "@/components/button";
+import SafeHTML from "@/components/safe-html";
 import clsx from "clsx";
 
 import type { Page, Media } from "../../payload-types";
@@ -63,6 +64,7 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
         >
           {items.map((item, index) => {
             const media = item.image as Media;
+            const content = item?.content || "";
             return (
               <div
                 className={clsx(
@@ -84,10 +86,10 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
                       alt={media.alt ?? "Grid Image"}
                       src={media.url}
                       className={clsx(
-                        "w-auto object-cover",
+                        "object-cover",
                         style == "card"
-                          ? "rounded-xl  aspect-3/2 object-cover"
-                          : "max-h-[160px]",
+                          ? "rounded-xl w-full aspect-3/2 object-cover"
+                          : "max-h-[160px] w-auto",
                         alignment == "center" && "mx-auto"
                       )}
                       width={400}
@@ -103,16 +105,19 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
                   >
                     {item.title}
                   </h3>
-                  {item.content && (
-                    <p
+                  {content != "" ? (
+                    <div
                       className={clsx(
                         "text-lg  font-medium",
                         alignment == "center" && "text-center",
                         style == "card" && "text-primary",
                         style == "normal" && "text-lightText"
                       )}
-                      dangerouslySetInnerHTML={{ __html: item.content }}
-                    />
+                    >
+                      <SafeHTML html={content} />
+                    </div>
+                  ) : (
+                    <div className="text-lg font-medium">&nbsp;</div>
                   )}
                 </div>
               </div>

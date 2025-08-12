@@ -278,9 +278,44 @@ export const TestimonialsBlock: Block = {
   slug: "testimonials",
   fields: [
     {
-      name: "heading",
-      type: "text",
-      required: true,
+      type: "row",
+      fields: [
+        {
+          name: "superHeading",
+          type: "text",
+          required: false,
+          label: "Eyebrow Heading",
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "heading",
+          type: "text",
+          required: false,
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "bgColor",
+          type: "select",
+          label: "Bg Color",
+          required: true,
+          options: [
+            { label: "White", value: "white" },
+            { label: "graygreen", value: "grayGreen" },
+          ],
+          defaultValue: "white",
+          admin: {
+            width: "20%",
+          },
+        },
+        {
+          name: "description",
+          type: "textarea",
+        },
+      ],
     },
     {
       name: "selectedTestimonials",
@@ -288,6 +323,13 @@ export const TestimonialsBlock: Block = {
       relationTo: "testimonials",
       hasMany: true,
       required: true,
+    },
+    {
+      name: "cta",
+      type: "blocks",
+      label: "Call to Action",
+      blocks: [ButtonBlock],
+      maxRows: 1,
     },
   ],
 };
@@ -339,7 +381,7 @@ export const ContentMediaBlock: Block = {
           options: [
             { label: "Two Column", value: "twoColumn" },
             { label: "Hero", value: "hero" },
-            { label: "Content Only", value: "contentOnly" },
+            { label: "Single Column", value: "contentOnly" },
           ],
           defaultValue: "twoColumn",
           admin: {
@@ -417,6 +459,8 @@ export const ContentMediaBlock: Block = {
           options: [
             { label: "Media", value: "media" },
             { label: "Embedded Video", value: "embeddedVideo" },
+            { label: "Form", value: "form" },
+            { label: "None", value: "none" },
           ],
           defaultValue: "media",
           admin: {
@@ -430,9 +474,9 @@ export const ContentMediaBlock: Block = {
           required: true,
           admin: {
             condition: (_, siblingData) =>
-              siblingData.blockStyle !== "contentOnly" &&
+              siblingData.mediaType !== "none" &&
               siblingData.mediaType === "media",
-            width: "30%",
+            width: "40%",
           },
         },
         {
@@ -442,7 +486,7 @@ export const ContentMediaBlock: Block = {
           required: true,
           admin: {
             condition: (_, siblingData) =>
-              siblingData.blockStyle !== "contentOnly" &&
+              siblingData.mediaType !== "none" &&
               siblingData.mediaType === "embeddedVideo",
             width: "35%",
           },
@@ -452,12 +496,29 @@ export const ContentMediaBlock: Block = {
           type: "upload",
           relationTo: "media",
           label: "Video Cover Image",
-          required: true,
+          required: false,
           admin: {
             condition: (_, siblingData) =>
-              siblingData.blockStyle !== "contentOnly" &&
+              siblingData.mediaType !== "none" &&
               siblingData.mediaType === "embeddedVideo",
             width: "35%",
+          },
+        },
+        {
+          name: "form",
+          type: "select",
+          label: "Form",
+          required: true,
+          options: [
+            { label: "None", value: "none" },
+            { label: "Contact Us", value: "contactUs" },
+          ],
+          defaultValue: "none",
+          admin: {
+            condition: (_, siblingData) =>
+              siblingData.mediaType !== "none" &&
+              siblingData.mediaType === "form",
+            width: "70%",
           },
         },
         {
@@ -472,7 +533,7 @@ export const ContentMediaBlock: Block = {
           defaultValue: "normal",
           admin: {
             condition: (_, siblingData) =>
-              siblingData.blockStyle !== "contentOnly" &&
+              siblingData.mediaType !== "none" &&
               siblingData.mediaType === "media",
             width: "30%",
           },
@@ -490,6 +551,17 @@ export const ContentMediaBlock: Block = {
           admin: {
             width: "30%",
             condition: (_, siblingData) => siblingData.blockStyle !== "hero",
+          },
+        },
+        {
+          name: "selectedTestimonials",
+          type: "relationship",
+          relationTo: "testimonials",
+          label: "Testimonial",
+          hasMany: false,
+          required: false,
+          admin: {
+            width: "40%",
           },
         },
       ],

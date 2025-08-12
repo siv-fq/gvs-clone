@@ -38,7 +38,7 @@ export default function VideoEmbed({
               height={300}
             />
           )}
-          <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+          {/* <div className="absolute inset-0 flex items-center justify-center bg-black/30">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-20 w-20 text-white"
@@ -47,7 +47,7 @@ export default function VideoEmbed({
             >
               <path d="M8 5v14l11-7z" />
             </svg>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

@@ -24,27 +24,35 @@ export const Testimonials: CollectionConfig = {
   },
   fields: [
     {
-      name: "name",
-      type: "text",
-      required: true,
-    },
-    {
-      name: "rating",
-      type: "select",
-      required: true,
-      options: [
-        { label: "1", value: "1" },
-        { label: "2", value: "2" },
-        { label: "3", value: "3" },
-        { label: "4", value: "4" },
-        { label: "5", value: "5" },
+      type: "row",
+      fields: [
+        {
+          name: "name",
+          type: "text",
+          required: true,
+          admin: {
+            width: "80%",
+          },
+        },
+        {
+          name: "rating",
+          type: "select",
+          required: true,
+          options: [
+            { label: "4", value: "4" },
+            { label: "5", value: "5" },
+          ],
+          defaultValue: "5",
+          admin: {
+            width: "20%",
+          },
+        },
+        {
+          name: "feedback",
+          type: "textarea",
+          required: true,
+        },
       ],
-      defaultValue: "5",
-    },
-    {
-      name: "feedback",
-      type: "textarea",
-      required: true,
     },
   ],
 };
