@@ -1,27 +1,23 @@
 import Link from "next/link";
+import type { Navigation, SiteSetting } from "../../payload-types";
 
-const navigation = {
-  company: [
-    { name: "About Us", href: "#" },
-    { name: "Our Impact", href: "#" },
-    { name: "Current State", href: "#" },
-    { name: "Why Book With Us", href: "#" },
-  ],
-  legal: [
-    { name: "How It Works", href: "#" },
-    { name: "Our Services", href: "#" },
-    { name: "Our Philosophy", href: "#" },
-    { name: "Contact Us", href: "#" },
-  ],
-  customer: [
-    { name: "Sustainable Goals", href: "#" },
-    { name: "Careers", href: "#" },
-    { name: "Tradesmen", href: "#" },
-    { name: "Testimonials", href: "#" },
-  ],
-};
+type FooterLinks = NonNullable<Navigation["footerLinks"]>;
 
-export default function Footer() {
+export default function Footer({
+  footerLinks,
+  siteName,
+  email,
+}: {
+  footerLinks: FooterLinks;
+  siteName: NonNullable<SiteSetting["branding"]>["siteName"];
+  email: NonNullable<SiteSetting["contactUs"]>["email"];
+}) {
+  const chunkSize = Math.ceil(footerLinks.length / 3);
+  const columns = [
+    footerLinks.slice(0, chunkSize),
+    footerLinks.slice(chunkSize, chunkSize * 2),
+    footerLinks.slice(chunkSize * 2),
+  ];
   return (
     <footer className="w-full text-white">
       <div className="mx-auto max-w-5xl px-6 pt-12 pb-8 lg:px-8">
@@ -41,47 +37,34 @@ export default function Footer() {
                     fill="#ffffff"
                   ></path>
                 </svg>
-                <span className="ml-2 text-2xl font-extrabold">Greenvan</span>
+                {siteName && (
+                  <span className="ml-2 text-2xl font-extrabold">
+                    {siteName}
+                  </span>
+                )}
               </Link>
             </div>
-            <p className="text-base text-lightWhite">
-              contact@greenvanservices.com
-            </p>
+            {email && <p className="text-base text-lightWhite">{email}</p>}
           </div>
           <div className="flex flex-col sm:flex-row w-full lg:w-4/6 gap-6">
-            <div className="w-full sm:w-1/3">
-              <ul role="list" className="space-y-2">
-                {navigation.company.map((item) => (
-                  <li key={item.name}>
-                    <Link href={item.href} className="text-base/6 link">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="w-full sm:w-1/3">
-              <ul role="list" className="space-y-2">
-                {navigation.legal.map((item) => (
-                  <li key={item.name}>
-                    <Link href={item.href} className="text-base/6 link">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="w-full sm:w-1/3">
-              <ul role="list" className="space-y-2">
-                {navigation.customer.map((item) => (
-                  <li key={item.name}>
-                    <Link href={item.href} className="text-base/6 link">
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {columns.map((col, colIndex) => (
+              <div key={colIndex} className="w-full sm:w-1/3">
+                <ul role="list" className="space-y-2">
+                  {col.map((item, idx) => (
+                    <li key={idx}>
+                      <Link
+                        href={item.url || "#"}
+                        target={item.newTab ? "_blank" : undefined}
+                        rel={item.newTab ? "noopener noreferrer" : undefined}
+                        className="text-base/6 link"
+                      >
+                        {item.text}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
 

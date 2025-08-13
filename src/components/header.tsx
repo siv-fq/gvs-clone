@@ -1,13 +1,19 @@
 "use client";
-
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import type { Navigation, SiteSetting } from "../../payload-types";
+
+type HeaderLinks = NonNullable<Navigation["headerLinks"]>;
 
 export default function Header({
   showHeaderOnLeft = false,
+  headerLinks,
+  siteName,
 }: {
   showHeaderOnLeft?: boolean | null;
+  headerLinks: HeaderLinks;
+  siteName: NonNullable<SiteSetting["branding"]>["siteName"];
 }) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -33,9 +39,11 @@ export default function Header({
                 fill="#327F6B"
               ></path>
             </svg>
-            <span className="ml-2 font-extrabold text-2xl text-black">
-              Greenvan
-            </span>
+            {siteName && (
+              <span className="ml-2 font-extrabold text-2xl text-black">
+                {siteName}
+              </span>
+            )}
           </a>
         </div>
         <div className="flex md:hidden">
@@ -62,24 +70,17 @@ export default function Header({
             onClick={() => setMobileMenuOpen(false)}
             className="md:hidden size-6 text-black cursor-pointer absolute top-[5px] right-[5px]"
           />
-          <Link
-            href="/about-us"
-            className="text-base/6 link my-1 md:my-0 font-medium text-gray-900"
-          >
-            About Us
-          </Link>
-          <Link
-            href="/our-impact"
-            className="text-base/6 link my-1 md:my-0 font-medium text-gray-900"
-          >
-            Our Impact
-          </Link>
-          <Link
-            href="/careers"
-            className="text-base/6 link my-1 md:my-0 font-medium text-gray-900"
-          >
-            Careers
-          </Link>
+          {headerLinks.map((link, i) => (
+            <Link
+              key={i}
+              href={link.url}
+              target={link.newTab ? "_blank" : "_self"}
+              rel={link.newTab ? "noopener noreferrer" : undefined}
+              className="text-base/6 link my-1 md:my-0 font-medium text-gray-900"
+            >
+              {link.text}
+            </Link>
+          ))}
         </div>
       </nav>
     </header>

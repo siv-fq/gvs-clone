@@ -1,4 +1,3 @@
-"use client";
 import type { Page } from "../../payload-types";
 import ContentMedia from "@/components/content-media";
 import Faq from "@/components/faq";

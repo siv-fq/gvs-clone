@@ -7,14 +7,16 @@ import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { Pages } from "@/collections/pages";
 import { Blogs } from "@/collections/blogs";
 import { Media } from "@/collections/media";
+import { Navigation } from "@/collections/navigation";
+import { SiteSettings } from "@/collections/site-settings";
 import { Testimonials } from "@/collections/testimonials";
 import { Users } from "@/collections/users";
 import { Authors } from "@/collections/authors";
 
 export default buildConfig({
   editor: lexicalEditor(),
-
   collections: [Blogs, Pages, Media, Testimonials, Users, Authors],
+  globals: [SiteSettings, Navigation],
   admin: {
     meta: {
       title: "Greenvan",

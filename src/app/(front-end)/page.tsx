@@ -1,5 +1,6 @@
 import { RefreshRouteOnSave } from "@/components/payload/RefreshRouteOnSave";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import { notFound } from "next/navigation";
 import { RenderBlocks } from "@/components/blocks";
 import { getPayload } from "payload";
@@ -27,12 +28,20 @@ export default async function LandingPage({
   });
 
   const page = result.docs[0];
+  const nav = await payload.findGlobal({
+    slug: "navigation",
+  });
+  const siteSettings = await payload.findGlobal({ slug: "site-settings" });
 
   if (!page) return notFound();
 
   return (
     <>
-      <Header showHeaderOnLeft={page.showHeaderOnLeft} />
+      <Header
+        showHeaderOnLeft={page.showHeaderOnLeft}
+        headerLinks={nav.headerLinks || []}
+        siteName={siteSettings.branding?.siteName || ""}
+      />
       <main className={`flex flex-col row-start-2 items-center sm:items-start`}>
         {isDraft && <RefreshRouteOnSave />}
         {page.blocks?.length ? (
@@ -42,6 +51,11 @@ export default async function LandingPage({
           />
         ) : null}
       </main>
+      <Footer
+        footerLinks={nav.footerLinks || []}
+        siteName={siteSettings.branding?.siteName || ""}
+        email={siteSettings.contactUs?.email || ""}
+      />
     </>
   );
 }
