@@ -37,7 +37,6 @@ export default function ContentMedia({
     alignment,
     bgColor,
     superHeading,
-    removeBottomSpace,
     cta,
     selectedTestimonials,
     form,
@@ -50,20 +49,15 @@ export default function ContentMedia({
     <section
       className={clsx(
         "w-full px-6",
-        bgColor == "grayGreen" && "bg-grayGreen",
+        bgColor == "grayGreen" && "bg-grayGreen border-y border-lightGray",
         blockStyle == "hero" && "bg-green-triangle",
-        imageStyle == "card"
-          ? "py-2"
-          : blockStyle != "hero" && removeBottomSpace
-            ? "pt-10"
-            : "py-10",
+        imageStyle == "card" ? "py-2" : "py-10",
         showHeaderOnLeft && blockPosition === 0 && "md:pt-20"
       )}
     >
       <div
         className={clsx(
-          "max-w-6xl mx-auto flex flex-col gap-6",
-          removeBottomSpace && blockStyle != "hero" ? "pt-10" : "py-10",
+          "max-w-6xl mx-auto flex flex-col gap-6 py-10",
           isImageLeft ? "md:flex-row" : "md:flex-row-reverse",
           blockStyle == "hero" && "md:pb-20 md:items-center"
         )}

@@ -403,7 +403,6 @@ export interface Page {
             videoCoverImage?: (number | null) | Media;
             form?: ('none' | 'contactUs') | null;
             imageStyle?: ('normal' | 'card') | null;
-            removeBottomSpace?: boolean | null;
             selectedTestimonials?: (number | null) | Testimonial;
             id?: string | null;
             blockName?: string | null;
@@ -812,7 +811,6 @@ export interface PagesSelect<T extends boolean = true> {
               videoCoverImage?: T;
               form?: T;
               imageStyle?: T;
-              removeBottomSpace?: T;
               selectedTestimonials?: T;
               id?: T;
               blockName?: T;

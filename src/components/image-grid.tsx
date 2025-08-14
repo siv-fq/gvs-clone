@@ -34,7 +34,7 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
     <section
       className={clsx(
         "py-20 px-6 w-full",
-        bgColor == "grayGreen" && "bg-grayGreen"
+        bgColor == "grayGreen" && "bg-grayGreen border-y border-lightGray"
       )}
     >
       <div className="mx-auto max-w-6xl">

@@ -26,7 +26,7 @@ export default function Faq({ block }: { block: FaqsBlock }) {
 
   return (
     <section
-      className={`py-20 px-6 w-full ${bgColor == "grayGreen" ? "bg-grayGreen" : ""}`}
+      className={`py-20 px-6 w-full ${bgColor == "grayGreen" ? "bg-grayGreen border-y border-lightGray" : ""}`}
     >
       <div className="mx-auto max-w-4xl">
         <div className="section-intro max-w-2xl mx-auto text-center">

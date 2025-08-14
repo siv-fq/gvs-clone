@@ -658,16 +658,6 @@ export const ContentMediaBlock: Block = {
       type: "row",
       fields: [
         {
-          name: "removeBottomSpace",
-          label: "Remove Spacing Below",
-          type: "checkbox",
-          defaultValue: false,
-          admin: {
-            width: "30%",
-            condition: (_, siblingData) => siblingData.blockStyle !== "hero",
-          },
-        },
-        {
           name: "selectedTestimonials",
           type: "relationship",
           relationTo: "testimonials",
