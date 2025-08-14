@@ -1,4 +1,4 @@
-import type { Page } from "../../payload-types";
+import type { Page } from "@payload-types";
 import Link from "next/link";
 import clsx from "clsx";
 

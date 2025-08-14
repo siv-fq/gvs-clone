@@ -21,7 +21,7 @@ export const Navigation: GlobalConfig = {
       minRows: 1,
       admin: {
         components: {
-          RowLabel: "@/components/payload/arrayRowLabel",
+          RowLabel: "@/components/payload/array-row-label",
         },
       },
       fields: [
@@ -61,7 +61,7 @@ export const Navigation: GlobalConfig = {
       minRows: 1,
       admin: {
         components: {
-          RowLabel: "@/components/payload/arrayRowLabel",
+          RowLabel: "@/components/payload/array-row-label",
         },
       },
       fields: [

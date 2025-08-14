@@ -1,4 +1,4 @@
-import type { Page, Testimonial as TestimonialType } from "../../payload-types";
+import type { Page, Testimonial as TestimonialType } from "@payload-types";
 import Button from "@/components/button";
 import Testimonial from "@/components/testimonial";
 
@@ -18,7 +18,7 @@ export default function Testimonials({ block }: { block: TestimonialBlock }) {
   } = block;
   return (
     <section
-      className={`py-15 px-6 w-full ${bgColor == "grayGreen" ? "bg-grayGreen" : ""}`}
+      className={`py-20 px-6 w-full ${bgColor == "grayGreen" ? "bg-grayGreen" : ""}`}
     >
       <div className="mx-auto max-w-5xl">
         <div className="section-intro max-w-2xl mx-auto text-center">
@@ -28,7 +28,7 @@ export default function Testimonials({ block }: { block: TestimonialBlock }) {
             </h3>
           )}
           {heading && (
-            <h2 className="text-3xl font-bold lg:text-4xl">{heading}</h2>
+            <h2 className="text-3xl font-extrabold lg:text-4xl">{heading}</h2>
           )}
           {description && (
             <p className="mt-3 text-lg md:text-xl text-gray-600">

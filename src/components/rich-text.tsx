@@ -3,6 +3,7 @@ import type {
   SerializedLinkNode,
 } from "@payloadcms/richtext-lexical";
 import type { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
+import clsx from "clsx";
 
 import {
   type JSXConvertersFunction,
@@ -31,7 +32,10 @@ const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
 };
 
 const createJSXConverters =
-  (isAlignedCenter: boolean): JSXConvertersFunction<DefaultNodeTypes> =>
+  (
+    isAlignedCenter: boolean,
+    listStyle: boolean
+  ): JSXConvertersFunction<DefaultNodeTypes> =>
   ({ defaultConverters }) => ({
     ...defaultConverters,
     ...LinkJSXConverter({ internalDocToHref }),
@@ -40,12 +44,12 @@ const createJSXConverters =
       const Tag = node.tag;
       const className =
         {
-          h1: "text-3xl md:text-4xl font-extrabold mb-2",
-          h2: "text-3xl md:text-4xl font-extrabold mb-2",
-          h3: "text-xl font-extrabold my-2",
-          h4: "text-base md:text-lg font-semibold my-2",
-          h5: "text-lg font-medium my-1",
-          h6: "text-base font-medium my-1",
+          h1: "text-3xl md:text-4xl font-extrabold mb-2 text-black",
+          h2: "text-3xl md:text-4xl font-extrabold mb-2 text-black",
+          h3: "text-xl font-extrabold my-2 text-black",
+          h4: "text-base md:text-lg font-extrabold my-2 text-black",
+          h5: "text-lg font-semibold my-1 text-black",
+          h6: "text-base font-semibold my-1 text-black",
         }[node.tag] ?? "";
 
       return <Tag className={className}>{children}</Tag>;
@@ -54,9 +58,7 @@ const createJSXConverters =
     paragraph: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children });
       return (
-        <p
-          className={`text-lg text-lightText my-2 ${isAlignedCenter && "mx-auto max-w-xl"}`}
-        >
+        <p className={` my-2 ${isAlignedCenter && "mx-auto max-w-xl"}`}>
           {children}
         </p>
       );
@@ -66,12 +68,14 @@ const createJSXConverters =
       const children = nodesToJSX({ nodes: node.children });
       if (node.tag === "ul") {
         return (
-          <ul className="leaf-style-list text-lg text-lightText">{children}</ul>
+          <ul
+            className={clsx(listStyle ? "leaf-style-list" : "list-disc pl-5")}
+          >
+            {children}
+          </ul>
         );
       } else if (node.tag === "ol") {
-        return (
-          <ol className="list-decimal ml-6 my-2 text-lightText">{children}</ol>
-        );
+        return <ol className="list-decimal ml-6 my-2">{children}</ol>;
       }
     },
 
@@ -85,7 +89,7 @@ const createJSXConverters =
     quote: ({ node, nodesToJSX }) => {
       const children = nodesToJSX({ nodes: node.children });
       return (
-        <blockquote className="border-l-4 border-gray-300 pl-4 italic text-gray-700 my-4">
+        <blockquote className="border-l-4 border-gray-300 pl-4 italic my-4">
           {children}
         </blockquote>
       );
@@ -99,12 +103,14 @@ const createJSXConverters =
 export default function RichTextRenderer({
   content,
   isAlignedCenter = false,
+  listStyle = true,
 }: {
   content: SerializedEditorState;
   isAlignedCenter?: boolean;
+  listStyle?: boolean;
 }) {
   if (!content) return null;
-  const converters = createJSXConverters(isAlignedCenter);
+  const converters = createJSXConverters(isAlignedCenter, listStyle);
   return (
     <div className="max-w-none">
       <RichText data={content} converters={converters} />

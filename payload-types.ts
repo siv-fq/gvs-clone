@@ -317,10 +317,59 @@ export interface Page {
             blockType: 'relatedContent';
           }
         | {
+            heading?: string | null;
+            tocContent?:
+              | {
+                  heading: string;
+                  content: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: string;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  };
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'tocWithContent';
+          }
+        | {
+            superHeading?: string | null;
+            heading?: string | null;
+            bgColor: 'white' | 'grayGreen';
+            description?: string | null;
+            media?: (number | null) | Media;
+            removeBottomSpace?: boolean | null;
+            removeBottomBorder?: boolean | null;
+            cta?:
+              | {
+                  text?: string | null;
+                  link?: string | null;
+                  style: 'primary' | 'secondary';
+                  newTab?: boolean | null;
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'button';
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'headerCta';
+          }
+        | {
             superHeading?: string | null;
             blockStyle: 'twoColumn' | 'hero' | 'contentOnly';
-            alignment?: ('left' | 'right') | null;
-            alignmentContentOnly?: ('left' | 'center') | null;
+            alignment: 'left' | 'right';
             bgColor: 'white' | 'grayGreen';
             content: {
               root: {
@@ -694,13 +743,53 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        tocWithContent?:
+          | T
+          | {
+              heading?: T;
+              tocContent?:
+                | T
+                | {
+                    heading?: T;
+                    content?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        headerCta?:
+          | T
+          | {
+              superHeading?: T;
+              heading?: T;
+              bgColor?: T;
+              description?: T;
+              media?: T;
+              removeBottomSpace?: T;
+              removeBottomBorder?: T;
+              cta?:
+                | T
+                | {
+                    button?:
+                      | T
+                      | {
+                          text?: T;
+                          link?: T;
+                          style?: T;
+                          newTab?: T;
+                          id?: T;
+                          blockName?: T;
+                        };
+                  };
+              id?: T;
+              blockName?: T;
+            };
         contentMedia?:
           | T
           | {
               superHeading?: T;
               blockStyle?: T;
               alignment?: T;
-              alignmentContentOnly?: T;
               bgColor?: T;
               content?: T;
               cta?:

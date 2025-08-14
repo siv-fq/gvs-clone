@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { Navigation, SiteSetting } from "../../payload-types";
+import type { Navigation, SiteSetting } from "@payload-types";
 
 type FooterLinks = NonNullable<Navigation["footerLinks"]>;
 
@@ -19,7 +19,12 @@ export default function Footer({
     footerLinks.slice(chunkSize * 2),
   ];
   return (
-    <footer className="w-full text-white">
+    <footer
+      className="w-full text-white"
+      style={{
+        backgroundImage: `url("/images/leaves-pattern.png"), linear-gradient(94.85deg, rgb(81, 191, 166) 0%, rgb(33, 94, 76) 100%)`,
+      }}
+    >
       <div className="mx-auto max-w-5xl px-6 pt-12 pb-8 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="w-full lg:w-2/6">
@@ -51,7 +56,7 @@ export default function Footer({
               <div key={colIndex} className="w-full sm:w-1/3">
                 <ul role="list" className="space-y-2">
                   {col.map((item, idx) => (
-                    <li key={idx}>
+                    <li key={idx} className="mb-5">
                       <Link
                         href={item.url || "#"}
                         target={item.newTab ? "_blank" : undefined}

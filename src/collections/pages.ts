@@ -5,6 +5,8 @@ import {
   RichTextBlock,
   TestimonialsBlock,
   RelatedContentBlock,
+  TocWithContent,
+  HeaderCta,
   ContentMediaBlock,
 } from "./blocks";
 import { Access } from "payload";
@@ -103,6 +105,8 @@ export const Pages: CollectionConfig = {
         RichTextBlock,
         TestimonialsBlock,
         RelatedContentBlock,
+        TocWithContent,
+        HeaderCta,
         ContentMediaBlock,
       ],
     },

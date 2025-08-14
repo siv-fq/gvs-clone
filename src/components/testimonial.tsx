@@ -1,4 +1,4 @@
-import type { Testimonial as TestimonialType } from "../../payload-types";
+import type { Testimonial as TestimonialType } from "@payload-types";
 
 export default function Testimonials({
   testimonial,

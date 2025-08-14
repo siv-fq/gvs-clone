@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import type { Navigation, SiteSetting } from "../../payload-types";
+import type { Navigation, SiteSetting } from "@payload-types";
 
 type HeaderLinks = NonNullable<Navigation["headerLinks"]>;
 
@@ -26,7 +26,7 @@ export default function Header({
         className="mx-auto flex max-w-7xl items-center justify-between p-6"
       >
         <div className="flex lg:flex-1 mr-7">
-          <a href="#" className="flex items-center">
+          <Link href="/" className="flex items-center">
             <svg
               width="30"
               height="30"
@@ -44,7 +44,7 @@ export default function Header({
                 {siteName}
               </span>
             )}
-          </a>
+          </Link>
         </div>
         <div className="flex md:hidden">
           <button

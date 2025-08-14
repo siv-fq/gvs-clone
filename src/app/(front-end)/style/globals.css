@@ -21,18 +21,15 @@ body {
   font-family: var(--font-inter), sans-serif;
 }
 
-footer {
-  background-image:
-    url(https://greenvanservices.com/static/img/v2/leaves-pattern.png),
-    linear-gradient(94.85deg, rgb(81, 191, 166) 0%, rgb(33, 94, 76) 100%);
-}
-
 .scrollbar-hide {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, and Opera */
+}
+.toc-with-content .toc-content a {
+  color: var(--color-primary);
 }
 
 a.link:hover,
@@ -59,28 +56,4 @@ a.secondary-btn:hover {
   width: 22px;
   height: 22px;
   margin-left: -30px;
-}
-
-.bg-green-triangle {
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjIwIiBoZWlnaHQ9Ijc2MiIgdmlld0JveD0iMCAwIDYyMCA3NjIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQo8cGF0aCBkPSJNNjIwIDc2MS41SDBMNjIwIDBWNzYxLjVaIiBmaWxsPSJ1cmwoI3BhaW50MF9saW5lYXIpIi8+DQo8ZGVmcz4NCjxsaW5lYXJHcmFkaWVudCBpZD0icGFpbnQwX2xpbmVhciIgeDE9IjMxNC41IiB5MT0iMTg1Ljg2NCIgeDI9IjMxNC41IiB5Mj0iNzYxLjUiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj4NCjxzdG9wIHN0b3AtY29sb3I9IiM1MUJGQTYiLz4NCjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzIxNUU0QyIvPg0KPC9saW5lYXJHcmFkaWVudD4NCjwvZGVmcz4NCjwvc3ZnPg0K);
-  color: var(--clr-black);
-  background-repeat: no-repeat;
-  background-position: right center;
-}
-
-@media (min-width: 1440px) {
-  .bg-green-triangle {
-    background-size: 150vh;
-  }
-}
-@media (min-width: 768px) and (max-width: 991px) {
-  .bg-green-triangle {
-    background-position: 150% 101%;
-  }
-}
-@media only screen and (max-width: 767px) {
-  .bg-green-triangle {
-    background-size: 250px;
-    background-position: 100% 101%;
-  }
 }

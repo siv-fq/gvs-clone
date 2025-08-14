@@ -1,4 +1,4 @@
-import { RefreshRouteOnSave } from "@/components/payload/RefreshRouteOnSave";
+import { RefreshRouteOnSave } from "@/components/payload/refresh-route-on-save";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { notFound } from "next/navigation";

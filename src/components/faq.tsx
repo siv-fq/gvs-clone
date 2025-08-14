@@ -2,8 +2,8 @@
 import { Plus, Minus } from "lucide-react";
 import { useState } from "react";
 import { RichText } from "@payloadcms/richtext-lexical/react";
+import type { Page } from "@payload-types";
 
-import type { Page } from "../../payload-types";
 type FaqsBlock = Extract<
   NonNullable<Page["blocks"]>[number],
   { blockType: "faqs" }
@@ -12,7 +12,6 @@ type FaqsBlock = Extract<
 export default function Faq({ block }: { block: FaqsBlock }) {
   const { description, heading, superHeading, bgColor, faqs } = block;
 
-  // Initialize all closed
   const [openItems, setOpenItems] = useState<boolean[]>(
     Array(faqs.length).fill(false)
   );
@@ -27,7 +26,7 @@ export default function Faq({ block }: { block: FaqsBlock }) {
 
   return (
     <section
-      className={`py-15 px-6 w-full ${bgColor == "grayGreen" ? "bg-grayGreen" : ""}`}
+      className={`py-20 px-6 w-full ${bgColor == "grayGreen" ? "bg-grayGreen" : ""}`}
     >
       <div className="mx-auto max-w-4xl">
         <div className="section-intro max-w-2xl mx-auto text-center">
@@ -37,7 +36,7 @@ export default function Faq({ block }: { block: FaqsBlock }) {
             </h3>
           )}
           {heading && (
-            <h2 className="text-3xl font-bold lg:text-4xl">{heading}</h2>
+            <h2 className="text-3xl font-extrabold lg:text-4xl">{heading}</h2>
           )}
           {description && (
             <p className="mt-3 text-lg md:text-xl text-gray-600">
@@ -60,7 +59,7 @@ export default function Faq({ block }: { block: FaqsBlock }) {
                       onClick={() => toggleItem(index)}
                       className="flex w-full cursor-pointer items-start justify-between text-left"
                     >
-                      <span className="text-lg leaf-style-list-item font-semibold">
+                      <span className="text-lg leaf-style-list-item font-medium">
                         {faq.question}
                       </span>
                       <span className="ml-6 flex h-7 items-center">
@@ -78,7 +77,7 @@ export default function Faq({ block }: { block: FaqsBlock }) {
                       isOpen ? "max-h-[500px]" : "max-h-0"
                     }`}
                   >
-                    <div className="mt-3 pr-12 ">
+                    <div className="mt-3 pr-12 text-lightText">
                       <RichText data={faq.answer} />
                     </div>
                   </dd>

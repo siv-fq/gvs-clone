@@ -357,6 +357,138 @@ export const RelatedContentBlock: Block = {
   ],
 };
 
+export const TocWithContent: Block = {
+  imageURL: "/preview-images/toc-content.png",
+  slug: "tocWithContent",
+  fields: [
+    {
+      name: "heading",
+      type: "text",
+      label: "Heading",
+      required: false,
+    },
+    {
+      name: "tocContent",
+      label: "Toc Content",
+      type: "array",
+      minRows: 1,
+      admin: {
+        components: {
+          RowLabel: "@/components/payload/array-row-label",
+        },
+      },
+      fields: [
+        {
+          type: "row",
+          fields: [
+            {
+              name: "heading",
+              type: "text",
+              label: "Heading",
+              required: true,
+              admin: {
+                width: "30%",
+              },
+            },
+            {
+              name: "content",
+              type: "richText",
+              label: "Content",
+              required: true,
+              admin: {
+                width: "70%",
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export const HeaderCta: Block = {
+  imageURL: "/preview-images/header-cta.png",
+  slug: "headerCta",
+  fields: [
+    {
+      type: "row",
+      fields: [
+        {
+          name: "superHeading",
+          type: "text",
+          required: false,
+          label: "Eyebrow Heading",
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "heading",
+          type: "text",
+          required: false,
+          admin: {
+            width: "40%",
+          },
+        },
+        {
+          name: "bgColor",
+          type: "select",
+          label: "Bg Color",
+          required: true,
+          options: [
+            { label: "White", value: "white" },
+            { label: "graygreen", value: "grayGreen" },
+          ],
+          defaultValue: "white",
+          admin: {
+            width: "20%",
+          },
+        },
+        {
+          name: "description",
+          type: "textarea",
+          admin: {
+            width: "100%",
+          },
+        },
+        {
+          name: "media",
+          type: "upload",
+          relationTo: "media",
+          required: false,
+          admin: {
+            width: "100%",
+          },
+        },
+        {
+          name: "removeBottomSpace",
+          label: "Remove Spacing Below",
+          type: "checkbox",
+          defaultValue: false,
+          admin: {
+            width: "50%",
+          },
+        },
+        {
+          name: "removeBottomBorder",
+          label: "Remove Bottom Border",
+          type: "checkbox",
+          defaultValue: false,
+          admin: {
+            width: "50%",
+          },
+        },
+      ],
+    },
+    {
+      name: "cta",
+      type: "blocks",
+      label: "Call to Action",
+      blocks: [ButtonBlock],
+      maxRows: 1,
+    },
+  ],
+};
 export const ContentMediaBlock: Block = {
   imageURL: "/preview-images/ping-pong.png",
   slug: "contentMedia",
@@ -400,24 +532,6 @@ export const ContentMediaBlock: Block = {
           defaultValue: "left",
           admin: {
             width: "20%",
-            condition: (_, siblingData) =>
-              siblingData.blockStyle !== "contentOnly",
-          },
-        },
-        {
-          name: "alignmentContentOnly",
-          type: "select",
-          label: "Content Alignment",
-          required: true,
-          options: [
-            { label: "Left", value: "left" },
-            { label: "Center", value: "center" },
-          ],
-          defaultValue: "center",
-          admin: {
-            width: "20%",
-            condition: (_, siblingData) =>
-              siblingData.blockStyle === "contentOnly",
           },
         },
         {

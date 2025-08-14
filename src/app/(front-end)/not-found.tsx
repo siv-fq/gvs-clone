@@ -49,7 +49,7 @@ export default async function NotFound() {
 
             <div className="flex-1">
               <Image
-                src="https://greenvanservices.com/static/svg/v2/workers-overalls-standing-near-closed-broken-elevator-repairmen-engineers-technicians-flat-vector-illustration-public-utility-service-concept.svg"
+                src="/images/closed-vector.svg"
                 alt="Content Media"
                 width={500}
                 height={340}

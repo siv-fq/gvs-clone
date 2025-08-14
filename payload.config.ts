@@ -30,8 +30,8 @@ export default buildConfig({
     },
     components: {
       graphics: {
-        Icon: "@/components/payload/customLogo",
-        Logo: "@/components/payload/customLogo",
+        Icon: "@/components/payload/custom-logo",
+        Logo: "@/components/payload/custom-logo",
       },
     },
   },

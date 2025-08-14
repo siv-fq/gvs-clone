@@ -3,7 +3,7 @@ import Button from "@/components/button";
 import SafeHTML from "@/components/safe-html";
 import clsx from "clsx";
 
-import type { Page, Media } from "../../payload-types";
+import type { Page, Media } from "@payload-types";
 type ImageGridBlock = Extract<
   NonNullable<Page["blocks"]>[number],
   { blockType: "imageGrid" }
@@ -33,7 +33,7 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
   return (
     <section
       className={clsx(
-        "py-15 px-6 w-full",
+        "py-20 px-6 w-full",
         bgColor == "grayGreen" && "bg-grayGreen"
       )}
     >
@@ -45,7 +45,7 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
             </h3>
           )}
           {heading && (
-            <h2 className="text-3xl font-bold lg:text-4xl">{heading}</h2>
+            <h2 className="text-3xl font-extrabold lg:text-4xl">{heading}</h2>
           )}
           {description && (
             <p className="mt-3 text-lg md:text-xl text-gray-600">
