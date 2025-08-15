@@ -1,5 +1,6 @@
 import Image from "next/image";
-import Button from "@/components/button";
+import Button from "@/components/widgets/button";
+import SectionHeader from "@/components/widgets/section-header";
 import SafeHTML from "@/components/safe-html";
 import clsx from "clsx";
 
@@ -15,6 +16,10 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
     heading,
     superHeading,
     bgColor,
+    removeTopSpace,
+    removeBottomSpace,
+    removeTopBorder,
+    removeBottomBorder,
     style,
     alignment,
     columnsPerRow,
@@ -34,29 +39,27 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
     <section
       className={clsx(
         "py-20 px-6 w-full",
-        bgColor == "grayGreen" && "bg-grayGreen border-y border-lightGray"
+        bgColor === "grayGreen" && [
+          "bg-grayGreen border-lightGray",
+          !removeTopBorder && !removeBottomBorder && "border-y",
+          removeTopBorder && !removeBottomBorder && "border-b",
+          !removeTopBorder && removeBottomBorder && "border-t",
+        ],
+        !removeTopSpace && !removeBottomSpace && "py-20",
+        removeTopSpace && !removeBottomSpace && "pb-20",
+        !removeTopSpace && removeBottomSpace && "pt-20"
       )}
     >
       <div className="mx-auto max-w-6xl">
-        <div className="section-intro max-w-2xl mx-auto text-center">
-          {superHeading && (
-            <h3 className="text-base md:text-lg font-extrabold uppercase text-primary">
-              {superHeading}
-            </h3>
-          )}
-          {heading && (
-            <h2 className="text-3xl font-extrabold lg:text-4xl">{heading}</h2>
-          )}
-          {description && (
-            <p className="mt-3 text-lg md:text-xl text-gray-600">
-              {description}
-            </p>
-          )}
-        </div>
+        <SectionHeader
+          heading={heading}
+          superHeading={superHeading}
+          description={description}
+        />
 
         <div
           className={clsx(
-            "mt-8 flex flex-wrap gap-y-5 mx-auto max-w-2xl",
+            "flex flex-wrap gap-y-5 mx-auto max-w-2xl",
             alignment == "center" && "justify-center",
             style != "icon" && "lg:max-w-none",
             style == "icon" && "lg:max-w-4xl"

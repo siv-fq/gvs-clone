@@ -15,44 +15,32 @@ export const SiteSettings: GlobalConfig = {
   },
   fields: [
     {
-      name: "branding",
+      name: "siteSEO",
       type: "group",
-      label: "Branding",
+      label: "SEO",
       fields: [
         {
           type: "row",
           fields: [
             {
-              name: "siteName",
-              type: "text",
-              label: "Site Name",
-              admin: { width: "50%" },
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: "contactUs",
-      type: "group",
-      label: "Contact Us",
-      fields: [
-        {
-          type: "row",
-          fields: [
-            {
-              name: "email",
-              type: "text",
-              label: "Email",
-              admin: { width: "50%" },
+              name: "metaDescription",
+              type: "textarea",
+              label: "Default meta description",
+              required: false,
+              admin: {
+                width: "50%",
+              },
             },
             {
-              name: "phone",
-              type: "text",
-              label: "Phone Number",
-              admin: { width: "50%" },
+              name: "ogImage",
+              type: "upload",
+              label: "Default OG (Open Graph) image for social sharing",
+              relationTo: "media",
+              required: false,
+              admin: {
+                width: "50%",
+              },
             },
-            { name: "address", type: "textarea", label: "Address" },
           ],
         },
       ],

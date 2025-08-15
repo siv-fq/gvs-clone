@@ -1,17 +1,9 @@
 import Link from "next/link";
-import type { Navigation, SiteSetting } from "@payload-types";
+import type { Navigation } from "@payload-types";
 
 type FooterLinks = NonNullable<Navigation["footerLinks"]>;
 
-export default function Footer({
-  footerLinks,
-  siteName,
-  email,
-}: {
-  footerLinks: FooterLinks;
-  siteName: NonNullable<SiteSetting["branding"]>["siteName"];
-  email: NonNullable<SiteSetting["contactUs"]>["email"];
-}) {
+export default function Footer({ footerLinks }: { footerLinks: FooterLinks }) {
   const chunkSize = Math.ceil(footerLinks.length / 3);
   const columns = [
     footerLinks.slice(0, chunkSize),
@@ -29,7 +21,7 @@ export default function Footer({
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="w-full lg:w-2/6">
             <div className="flex lg:flex-1 mr-7">
-              <Link href="#" className="flex items-center">
+              <Link href="/" className="flex items-center">
                 <svg
                   width="30"
                   height="30"
@@ -42,14 +34,12 @@ export default function Footer({
                     fill="#ffffff"
                   ></path>
                 </svg>
-                {siteName && (
-                  <span className="ml-2 text-2xl font-extrabold">
-                    {siteName}
-                  </span>
-                )}
+                <span className="ml-2 text-2xl font-extrabold">Greenvan</span>
               </Link>
             </div>
-            {email && <p className="text-base text-lightWhite">{email}</p>}
+            <p className="text-base text-lightWhite">
+              contact@greenvanservices.com
+            </p>
           </div>
           <div className="flex flex-col sm:flex-row w-full lg:w-4/6 gap-6">
             {columns.map((col, colIndex) => (

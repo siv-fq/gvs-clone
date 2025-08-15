@@ -1,6 +1,8 @@
 import type { Page, Testimonial as TestimonialType } from "@payload-types";
-import Button from "@/components/button";
-import Testimonial from "@/components/testimonial";
+import Button from "@/components/widgets/button";
+import SectionHeader from "@/components/widgets/section-header";
+import Testimonial from "@/components/widgets/testimonial";
+import clsx from "clsx";
 
 type TestimonialBlock = Extract<
   NonNullable<Page["blocks"]>[number],
@@ -13,29 +15,34 @@ export default function Testimonials({ block }: { block: TestimonialBlock }) {
     heading,
     description,
     bgColor,
+    removeTopSpace,
+    removeBottomSpace,
+    removeTopBorder,
+    removeBottomBorder,
     selectedTestimonials,
     cta,
   } = block;
   return (
     <section
-      className={`py-20 px-6 w-full ${bgColor == "grayGreen" ? "bg-grayGreen border-y border-lightGray" : ""}`}
+      className={clsx(
+        "px-6 w-full",
+        bgColor === "grayGreen" && [
+          "bg-grayGreen border-lightGray",
+          !removeTopBorder && !removeBottomBorder && "border-y",
+          removeTopBorder && !removeBottomBorder && "border-b",
+          !removeTopBorder && removeBottomBorder && "border-t",
+        ],
+        !removeTopSpace && !removeBottomSpace && "py-20",
+        removeTopSpace && !removeBottomSpace && "pb-20",
+        !removeTopSpace && removeBottomSpace && "pt-20"
+      )}
     >
       <div className="mx-auto max-w-5xl">
-        <div className="section-intro max-w-2xl mx-auto text-center">
-          {superHeading && (
-            <h3 className="text-base md:text-lg font-extrabold uppercase text-primary">
-              {superHeading}
-            </h3>
-          )}
-          {heading && (
-            <h2 className="text-3xl font-extrabold lg:text-4xl">{heading}</h2>
-          )}
-          {description && (
-            <p className="mt-3 text-lg md:text-xl text-gray-600">
-              {description}
-            </p>
-          )}
-        </div>
+        <SectionHeader
+          heading={heading}
+          superHeading={superHeading}
+          description={description}
+        />
         <div className="overflow-x-scroll scrollbar-hide">
           <div className="mt-8  grid grid-cols-3 gap-3 w-[1024px]">
             {selectedTestimonials.map((t) => {

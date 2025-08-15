@@ -2,18 +2,16 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import type { Navigation, SiteSetting } from "@payload-types";
+import type { Navigation } from "@payload-types";
 
 type HeaderLinks = NonNullable<Navigation["headerLinks"]>;
 
 export default function Header({
   showHeaderOnLeft = false,
   headerLinks,
-  siteName,
 }: {
   showHeaderOnLeft?: boolean | null;
   headerLinks: HeaderLinks;
-  siteName: NonNullable<SiteSetting["branding"]>["siteName"];
 }) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -39,11 +37,9 @@ export default function Header({
                 fill="#327F6B"
               ></path>
             </svg>
-            {siteName && (
-              <span className="ml-2 font-extrabold text-2xl text-black">
-                {siteName}
-              </span>
-            )}
+            <span className="ml-2 font-extrabold text-2xl text-black">
+              Greenvan
+            </span>
           </Link>
         </div>
         <div className="flex md:hidden">

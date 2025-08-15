@@ -3,6 +3,8 @@ import { Plus, Minus } from "lucide-react";
 import { useState } from "react";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import type { Page } from "@payload-types";
+import SectionHeader from "@/components/widgets/section-header";
+import clsx from "clsx";
 
 type FaqsBlock = Extract<
   NonNullable<Page["blocks"]>[number],
@@ -10,7 +12,17 @@ type FaqsBlock = Extract<
 >;
 
 export default function Faq({ block }: { block: FaqsBlock }) {
-  const { description, heading, superHeading, bgColor, faqs } = block;
+  const {
+    description,
+    heading,
+    superHeading,
+    bgColor,
+    removeTopSpace,
+    removeBottomSpace,
+    removeTopBorder,
+    removeBottomBorder,
+    faqs,
+  } = block;
 
   const [openItems, setOpenItems] = useState<boolean[]>(
     Array(faqs.length).fill(false)
@@ -26,24 +38,25 @@ export default function Faq({ block }: { block: FaqsBlock }) {
 
   return (
     <section
-      className={`py-20 px-6 w-full ${bgColor == "grayGreen" ? "bg-grayGreen border-y border-lightGray" : ""}`}
+      className={clsx(
+        "py-20 px-6 w-full",
+        bgColor === "grayGreen" && [
+          "bg-grayGreen border-lightGray",
+          !removeTopBorder && !removeBottomBorder && "border-y",
+          removeTopBorder && !removeBottomBorder && "border-b",
+          !removeTopBorder && removeBottomBorder && "border-t",
+        ],
+        !removeTopSpace && !removeBottomSpace && "py-20",
+        removeTopSpace && !removeBottomSpace && "pb-20",
+        !removeTopSpace && removeBottomSpace && "pt-20"
+      )}
     >
       <div className="mx-auto max-w-4xl">
-        <div className="section-intro max-w-2xl mx-auto text-center">
-          {superHeading && (
-            <h3 className="text-base md:text-lg font-extrabold uppercase text-primary">
-              {superHeading}
-            </h3>
-          )}
-          {heading && (
-            <h2 className="text-3xl font-extrabold lg:text-4xl">{heading}</h2>
-          )}
-          {description && (
-            <p className="mt-3 text-lg md:text-xl text-gray-600">
-              {description}
-            </p>
-          )}
-        </div>
+        <SectionHeader
+          heading={heading}
+          superHeading={superHeading}
+          description={description}
+        />
 
         {faqs.length > 0 && (
           <dl className="mt-10 divide-y divide-gray-400">

@@ -213,11 +213,15 @@ export interface Page {
         | {
             superHeading?: string | null;
             heading?: string | null;
+            bgColor: 'white' | 'grayGreen';
             description?: string | null;
+            removeTopSpace?: boolean | null;
+            removeBottomSpace?: boolean | null;
+            removeTopBorder?: boolean | null;
+            removeBottomBorder?: boolean | null;
             columnsPerRow: '2' | '3' | '4' | '5';
             style: 'normal' | 'card' | 'icon';
             alignment: 'left' | 'center';
-            bgColor: 'white' | 'grayGreen';
             items: {
               title?: string | null;
               content?: string | null;
@@ -244,6 +248,10 @@ export interface Page {
             heading?: string | null;
             bgColor: 'white' | 'grayGreen';
             description?: string | null;
+            removeTopSpace?: boolean | null;
+            removeBottomSpace?: boolean | null;
+            removeTopBorder?: boolean | null;
+            removeBottomBorder?: boolean | null;
             faqs: {
               question: string;
               answer: {
@@ -292,6 +300,10 @@ export interface Page {
             heading?: string | null;
             bgColor: 'white' | 'grayGreen';
             description?: string | null;
+            removeTopSpace?: boolean | null;
+            removeBottomSpace?: boolean | null;
+            removeTopBorder?: boolean | null;
+            removeBottomBorder?: boolean | null;
             selectedTestimonials: (number | Testimonial)[];
             cta?:
               | {
@@ -307,14 +319,6 @@ export interface Page {
             id?: string | null;
             blockName?: string | null;
             blockType: 'testimonials';
-          }
-        | {
-            heading: string;
-            description?: string | null;
-            relatedBlogs?: (number | Blog)[] | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'relatedContent';
           }
         | {
             heading?: string | null;
@@ -348,8 +352,9 @@ export interface Page {
             heading?: string | null;
             bgColor: 'white' | 'grayGreen';
             description?: string | null;
-            media?: (number | null) | Media;
+            removeTopSpace?: boolean | null;
             removeBottomSpace?: boolean | null;
+            removeTopBorder?: boolean | null;
             removeBottomBorder?: boolean | null;
             cta?:
               | {
@@ -362,15 +367,24 @@ export interface Page {
                   blockType: 'button';
                 }[]
               | null;
+            media?: (number | null) | Media;
             id?: string | null;
             blockName?: string | null;
             blockType: 'headerCta';
           }
         | {
             superHeading?: string | null;
-            blockStyle: 'twoColumn' | 'hero' | 'contentOnly';
-            alignment: 'left' | 'right';
+            heading?: string | null;
             bgColor: 'white' | 'grayGreen';
+            description?: string | null;
+            removeTopSpace?: boolean | null;
+            removeBottomSpace?: boolean | null;
+            removeTopBorder?: boolean | null;
+            removeBottomBorder?: boolean | null;
+            blockStyle: 'twoColumn' | 'hero';
+            contentPosition: 'left' | 'right';
+            eyebrowHeading?: string | null;
+            selectedTestimonials?: (number | null) | Testimonial;
             content: {
               root: {
                 type: string;
@@ -403,7 +417,6 @@ export interface Page {
             videoCoverImage?: (number | null) | Media;
             form?: ('none' | 'contactUs') | null;
             imageStyle?: ('normal' | 'card') | null;
-            selectedTestimonials?: (number | null) | Testimonial;
             id?: string | null;
             blockName?: string | null;
             blockType: 'contentMedia';
@@ -654,11 +667,15 @@ export interface PagesSelect<T extends boolean = true> {
           | {
               superHeading?: T;
               heading?: T;
+              bgColor?: T;
               description?: T;
+              removeTopSpace?: T;
+              removeBottomSpace?: T;
+              removeTopBorder?: T;
+              removeBottomBorder?: T;
               columnsPerRow?: T;
               style?: T;
               alignment?: T;
-              bgColor?: T;
               items?:
                 | T
                 | {
@@ -691,6 +708,10 @@ export interface PagesSelect<T extends boolean = true> {
               heading?: T;
               bgColor?: T;
               description?: T;
+              removeTopSpace?: T;
+              removeBottomSpace?: T;
+              removeTopBorder?: T;
+              removeBottomBorder?: T;
               faqs?:
                 | T
                 | {
@@ -715,6 +736,10 @@ export interface PagesSelect<T extends boolean = true> {
               heading?: T;
               bgColor?: T;
               description?: T;
+              removeTopSpace?: T;
+              removeBottomSpace?: T;
+              removeTopBorder?: T;
+              removeBottomBorder?: T;
               selectedTestimonials?: T;
               cta?:
                 | T
@@ -730,15 +755,6 @@ export interface PagesSelect<T extends boolean = true> {
                           blockName?: T;
                         };
                   };
-              id?: T;
-              blockName?: T;
-            };
-        relatedContent?:
-          | T
-          | {
-              heading?: T;
-              description?: T;
-              relatedBlogs?: T;
               id?: T;
               blockName?: T;
             };
@@ -763,8 +779,9 @@ export interface PagesSelect<T extends boolean = true> {
               heading?: T;
               bgColor?: T;
               description?: T;
-              media?: T;
+              removeTopSpace?: T;
               removeBottomSpace?: T;
+              removeTopBorder?: T;
               removeBottomBorder?: T;
               cta?:
                 | T
@@ -780,6 +797,7 @@ export interface PagesSelect<T extends boolean = true> {
                           blockName?: T;
                         };
                   };
+              media?: T;
               id?: T;
               blockName?: T;
             };
@@ -787,9 +805,17 @@ export interface PagesSelect<T extends boolean = true> {
           | T
           | {
               superHeading?: T;
-              blockStyle?: T;
-              alignment?: T;
+              heading?: T;
               bgColor?: T;
+              description?: T;
+              removeTopSpace?: T;
+              removeBottomSpace?: T;
+              removeTopBorder?: T;
+              removeBottomBorder?: T;
+              blockStyle?: T;
+              contentPosition?: T;
+              eyebrowHeading?: T;
+              selectedTestimonials?: T;
               content?: T;
               cta?:
                 | T
@@ -811,7 +837,6 @@ export interface PagesSelect<T extends boolean = true> {
               videoCoverImage?: T;
               form?: T;
               imageStyle?: T;
-              selectedTestimonials?: T;
               id?: T;
               blockName?: T;
             };
@@ -952,13 +977,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface SiteSetting {
   id: number;
-  branding?: {
-    siteName?: string | null;
-  };
-  contactUs?: {
-    email?: string | null;
-    phone?: string | null;
-    address?: string | null;
+  siteSEO?: {
+    metaDescription?: string | null;
+    ogImage?: (number | null) | Media;
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -993,17 +1014,11 @@ export interface Navigation {
  * via the `definition` "site-settings_select".
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
-  branding?:
+  siteSEO?:
     | T
     | {
-        siteName?: T;
-      };
-  contactUs?:
-    | T
-    | {
-        email?: T;
-        phone?: T;
-        address?: T;
+        metaDescription?: T;
+        ogImage?: T;
       };
   updatedAt?: T;
   createdAt?: T;

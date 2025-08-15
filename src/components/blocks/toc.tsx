@@ -1,7 +1,7 @@
 "use client";
 import { useRef } from "react";
 import { Page } from "@payload-types";
-import RichTextComponent from "@/components/rich-text";
+import RichTextComponent from "@/components/widgets/rich-text";
 
 type tocContentBlock = Extract<
   NonNullable<Page["blocks"]>[number],

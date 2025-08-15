@@ -1,4 +1,89 @@
-import { Block } from "payload";
+import { Block, Field } from "payload";
+
+/* Reusable block within a block */
+export const SectionHeaderFields: Field[] = [
+  {
+    type: "row",
+    fields: [
+      {
+        name: "superHeading",
+        type: "text",
+        required: false,
+        label: "Eyebrow Heading",
+        admin: {
+          width: "40%",
+        },
+      },
+      {
+        name: "heading",
+        type: "text",
+        required: false,
+        admin: {
+          width: "40%",
+        },
+      },
+      {
+        name: "bgColor",
+        type: "select",
+        label: "Bg Color",
+        required: true,
+        options: [
+          { label: "White", value: "white" },
+          { label: "Light Graygreen", value: "grayGreen" },
+        ],
+        defaultValue: "white",
+        admin: {
+          width: "20%",
+        },
+      },
+      {
+        name: "description",
+        type: "textarea",
+        admin: {
+          width: "100%",
+        },
+      },
+      {
+        name: "removeTopSpace",
+        label: "Remove Top Spacing",
+        type: "checkbox",
+        defaultValue: false,
+        admin: {
+          width: "25%",
+        },
+      },
+      {
+        name: "removeBottomSpace",
+        label: "Remove Spacing Below",
+        type: "checkbox",
+        defaultValue: false,
+        admin: {
+          width: "25%",
+        },
+      },
+      {
+        name: "removeTopBorder",
+        label: "Remove Top Border",
+        type: "checkbox",
+        defaultValue: false,
+        admin: {
+          width: "25%",
+          condition: (_, siblingData) => siblingData.bgColor === "grayGreen",
+        },
+      },
+      {
+        name: "removeBottomBorder",
+        label: "Remove Border Bottom",
+        type: "checkbox",
+        defaultValue: false,
+        admin: {
+          width: "25%",
+          condition: (_, siblingData) => siblingData.bgColor === "grayGreen",
+        },
+      },
+    ],
+  },
+];
 
 export const ButtonBlock: Block = {
   slug: "button",
@@ -63,32 +148,16 @@ export const ImageGridBlock: Block = {
   imageURL: "/preview-images/image-grid.png",
   fields: [
     {
+      type: "collapsible",
+      label: "Section Header / Style",
+      fields: [...SectionHeaderFields],
+      admin: {
+        initCollapsed: true,
+      },
+    },
+    {
       type: "row",
       fields: [
-        {
-          name: "superHeading",
-          type: "text",
-          required: false,
-          label: "Eyebrow Heading",
-          admin: {
-            width: "50%",
-          },
-        },
-        {
-          name: "heading",
-          type: "text",
-          required: false,
-          admin: {
-            width: "50%",
-          },
-        },
-        {
-          name: "description",
-          type: "textarea",
-          admin: {
-            width: "100%",
-          },
-        },
         {
           name: "columnsPerRow",
           type: "select",
@@ -102,7 +171,7 @@ export const ImageGridBlock: Block = {
           ],
           defaultValue: "4",
           admin: {
-            width: "25%",
+            width: "33%",
           },
         },
         {
@@ -117,7 +186,7 @@ export const ImageGridBlock: Block = {
           ],
           defaultValue: "normal",
           admin: {
-            width: "25%",
+            width: "33%",
           },
         },
         {
@@ -131,21 +200,7 @@ export const ImageGridBlock: Block = {
           ],
           defaultValue: "left",
           admin: {
-            width: "25%",
-          },
-        },
-        {
-          name: "bgColor",
-          type: "select",
-          label: "Bg Color",
-          required: true,
-          options: [
-            { label: "White", value: "white" },
-            { label: "graygreen", value: "grayGreen" },
-          ],
-          defaultValue: "white",
-          admin: {
-            width: "25%",
+            width: "33%",
           },
         },
       ],
@@ -163,14 +218,14 @@ export const ImageGridBlock: Block = {
               name: "title",
               type: "text",
               admin: {
-                width: "100%",
+                width: "30%",
               },
             },
             {
               name: "content",
               type: "textarea",
               admin: {
-                width: "50%",
+                width: "40%",
               },
             },
             {
@@ -179,7 +234,7 @@ export const ImageGridBlock: Block = {
               relationTo: "media",
               required: true,
               admin: {
-                width: "50%",
+                width: "30%",
               },
             },
           ],
@@ -201,44 +256,12 @@ export const FaqBlock: Block = {
   slug: "faqs",
   fields: [
     {
-      type: "row",
-      fields: [
-        {
-          name: "superHeading",
-          type: "text",
-          required: false,
-          label: "Eyebrow Heading",
-          admin: {
-            width: "40%",
-          },
-        },
-        {
-          name: "heading",
-          type: "text",
-          required: false,
-          admin: {
-            width: "40%",
-          },
-        },
-        {
-          name: "bgColor",
-          type: "select",
-          label: "Bg Color",
-          required: true,
-          options: [
-            { label: "White", value: "white" },
-            { label: "graygreen", value: "grayGreen" },
-          ],
-          defaultValue: "white",
-          admin: {
-            width: "20%",
-          },
-        },
-        {
-          name: "description",
-          type: "textarea",
-        },
-      ],
+      type: "collapsible",
+      label: "Section Header / Style",
+      fields: [...SectionHeaderFields],
+      admin: {
+        initCollapsed: true,
+      },
     },
     {
       name: "faqs",
@@ -278,44 +301,12 @@ export const TestimonialsBlock: Block = {
   slug: "testimonials",
   fields: [
     {
-      type: "row",
-      fields: [
-        {
-          name: "superHeading",
-          type: "text",
-          required: false,
-          label: "Eyebrow Heading",
-          admin: {
-            width: "40%",
-          },
-        },
-        {
-          name: "heading",
-          type: "text",
-          required: false,
-          admin: {
-            width: "40%",
-          },
-        },
-        {
-          name: "bgColor",
-          type: "select",
-          label: "Bg Color",
-          required: true,
-          options: [
-            { label: "White", value: "white" },
-            { label: "graygreen", value: "grayGreen" },
-          ],
-          defaultValue: "white",
-          admin: {
-            width: "20%",
-          },
-        },
-        {
-          name: "description",
-          type: "textarea",
-        },
-      ],
+      type: "collapsible",
+      label: "Section Header / Style",
+      fields: [...SectionHeaderFields],
+      admin: {
+        initCollapsed: true,
+      },
     },
     {
       name: "selectedTestimonials",
@@ -411,74 +402,12 @@ export const HeaderCta: Block = {
   slug: "headerCta",
   fields: [
     {
-      type: "row",
-      fields: [
-        {
-          name: "superHeading",
-          type: "text",
-          required: false,
-          label: "Eyebrow Heading",
-          admin: {
-            width: "40%",
-          },
-        },
-        {
-          name: "heading",
-          type: "text",
-          required: false,
-          admin: {
-            width: "40%",
-          },
-        },
-        {
-          name: "bgColor",
-          type: "select",
-          label: "Bg Color",
-          required: true,
-          options: [
-            { label: "White", value: "white" },
-            { label: "graygreen", value: "grayGreen" },
-          ],
-          defaultValue: "white",
-          admin: {
-            width: "20%",
-          },
-        },
-        {
-          name: "description",
-          type: "textarea",
-          admin: {
-            width: "100%",
-          },
-        },
-        {
-          name: "media",
-          type: "upload",
-          relationTo: "media",
-          required: false,
-          admin: {
-            width: "100%",
-          },
-        },
-        {
-          name: "removeBottomSpace",
-          label: "Remove Spacing Below",
-          type: "checkbox",
-          defaultValue: false,
-          admin: {
-            width: "50%",
-          },
-        },
-        {
-          name: "removeBottomBorder",
-          label: "Remove Bottom Border",
-          type: "checkbox",
-          defaultValue: false,
-          admin: {
-            width: "50%",
-          },
-        },
-      ],
+      type: "collapsible",
+      label: "Section Header / Style",
+      fields: [...SectionHeaderFields],
+      admin: {
+        initCollapsed: true,
+      },
     },
     {
       name: "cta",
@@ -487,6 +416,15 @@ export const HeaderCta: Block = {
       blocks: [ButtonBlock],
       maxRows: 1,
     },
+    {
+      name: "media",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+      admin: {
+        width: "100%",
+      },
+    },
   ],
 };
 export const ContentMediaBlock: Block = {
@@ -494,17 +432,16 @@ export const ContentMediaBlock: Block = {
   slug: "contentMedia",
   fields: [
     {
+      type: "collapsible",
+      label: "Section Header / Style",
+      fields: [...SectionHeaderFields],
+      admin: {
+        initCollapsed: true,
+      },
+    },
+    {
       type: "row",
       fields: [
-        {
-          name: "superHeading",
-          type: "text",
-          required: false,
-          label: "Eyebrow Heading",
-          admin: {
-            width: "40%",
-          },
-        },
         {
           name: "blockStyle",
           type: "select",
@@ -513,7 +450,6 @@ export const ContentMediaBlock: Block = {
           options: [
             { label: "Two Column", value: "twoColumn" },
             { label: "Hero", value: "hero" },
-            { label: "Single Column", value: "contentOnly" },
           ],
           defaultValue: "twoColumn",
           admin: {
@@ -521,7 +457,7 @@ export const ContentMediaBlock: Block = {
           },
         },
         {
-          name: "alignment",
+          name: "contentPosition",
           type: "select",
           label: "Content Side",
           required: true,
@@ -534,139 +470,149 @@ export const ContentMediaBlock: Block = {
             width: "20%",
           },
         },
+      ],
+    },
+    {
+      type: "collapsible",
+      label: "Content",
+      fields: [
         {
-          name: "bgColor",
-          type: "select",
-          label: "Bg Color",
-          required: true,
-          options: [
-            { label: "White", value: "white" },
-            { label: "graygreen", value: "grayGreen" },
+          type: "row",
+          fields: [
+            {
+              name: "eyebrowHeading",
+              type: "text",
+              required: false,
+              label: "Eyebrow Heading",
+              admin: {
+                width: "60%",
+              },
+            },
+            {
+              name: "selectedTestimonials",
+              type: "relationship",
+              relationTo: "testimonials",
+              label: "Testimonial",
+              hasMany: false,
+              required: false,
+              admin: {
+                width: "40%",
+              },
+            },
+            {
+              name: "content",
+              type: "richText",
+              required: true,
+              admin: {
+                width: "100%",
+              },
+            },
           ],
-          defaultValue: "white",
-          admin: {
-            width: "20%",
-          },
+        },
+        {
+          name: "cta",
+          type: "blocks",
+          label: "Call to Action",
+          blocks: [ButtonBlock],
+          maxRows: 1,
         },
       ],
     },
     {
-      name: "content",
-      type: "richText",
-      required: true,
-    },
-    {
-      name: "cta",
-      type: "blocks",
-      label: "Call to Action",
-      blocks: [ButtonBlock],
-      maxRows: 2,
-    },
-    {
-      type: "row",
+      type: "collapsible",
+      label: "Media",
       fields: [
         {
-          name: "mediaType",
-          type: "select",
-          label: "Media Type",
-          required: true,
-          options: [
-            { label: "Media", value: "media" },
-            { label: "Embedded Video", value: "embeddedVideo" },
-            { label: "Form", value: "form" },
-            { label: "None", value: "none" },
+          type: "row",
+          fields: [
+            {
+              name: "mediaType",
+              type: "select",
+              label: "Media Type",
+              required: true,
+              options: [
+                { label: "Media", value: "media" },
+                { label: "Embedded Video", value: "embeddedVideo" },
+                { label: "Form", value: "form" },
+                { label: "None", value: "none" },
+              ],
+              defaultValue: "media",
+              admin: {
+                width: "30%",
+              },
+            },
+            {
+              name: "media",
+              type: "upload",
+              relationTo: "media",
+              required: true,
+              admin: {
+                condition: (_, siblingData) =>
+                  siblingData.mediaType !== "none" &&
+                  siblingData.mediaType === "media",
+                width: "40%",
+              },
+            },
+            {
+              name: "videoLink",
+              type: "text",
+              label: "Video Link",
+              required: true,
+              admin: {
+                condition: (_, siblingData) =>
+                  siblingData.mediaType !== "none" &&
+                  siblingData.mediaType === "embeddedVideo",
+                width: "35%",
+              },
+            },
+            {
+              name: "videoCoverImage",
+              type: "upload",
+              relationTo: "media",
+              label: "Video Cover Image",
+              required: false,
+              admin: {
+                condition: (_, siblingData) =>
+                  siblingData.mediaType !== "none" &&
+                  siblingData.mediaType === "embeddedVideo",
+                width: "35%",
+              },
+            },
+            {
+              name: "form",
+              type: "select",
+              label: "Form",
+              required: true,
+              options: [
+                { label: "None", value: "none" },
+                { label: "Contact Us", value: "contactUs" },
+              ],
+              defaultValue: "none",
+              admin: {
+                condition: (_, siblingData) =>
+                  siblingData.mediaType !== "none" &&
+                  siblingData.mediaType === "form",
+                width: "70%",
+              },
+            },
+            {
+              name: "imageStyle",
+              type: "select",
+              label: "Image Style",
+              required: true,
+              options: [
+                { label: "Normal", value: "normal" },
+                { label: "Card", value: "card" },
+              ],
+              defaultValue: "normal",
+              admin: {
+                condition: (_, siblingData) =>
+                  siblingData.mediaType !== "none" &&
+                  siblingData.mediaType === "media",
+                width: "30%",
+              },
+            },
           ],
-          defaultValue: "media",
-          admin: {
-            width: "30%",
-          },
-        },
-        {
-          name: "media",
-          type: "upload",
-          relationTo: "media",
-          required: true,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData.mediaType !== "none" &&
-              siblingData.mediaType === "media",
-            width: "40%",
-          },
-        },
-        {
-          name: "videoLink",
-          type: "text",
-          label: "Video Link",
-          required: true,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData.mediaType !== "none" &&
-              siblingData.mediaType === "embeddedVideo",
-            width: "35%",
-          },
-        },
-        {
-          name: "videoCoverImage",
-          type: "upload",
-          relationTo: "media",
-          label: "Video Cover Image",
-          required: false,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData.mediaType !== "none" &&
-              siblingData.mediaType === "embeddedVideo",
-            width: "35%",
-          },
-        },
-        {
-          name: "form",
-          type: "select",
-          label: "Form",
-          required: true,
-          options: [
-            { label: "None", value: "none" },
-            { label: "Contact Us", value: "contactUs" },
-          ],
-          defaultValue: "none",
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData.mediaType !== "none" &&
-              siblingData.mediaType === "form",
-            width: "70%",
-          },
-        },
-        {
-          name: "imageStyle",
-          type: "select",
-          label: "Image Style",
-          required: true,
-          options: [
-            { label: "Normal", value: "normal" },
-            { label: "Card", value: "card" },
-          ],
-          defaultValue: "normal",
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData.mediaType !== "none" &&
-              siblingData.mediaType === "media",
-            width: "30%",
-          },
-        },
-      ],
-    },
-    {
-      type: "row",
-      fields: [
-        {
-          name: "selectedTestimonials",
-          type: "relationship",
-          relationTo: "testimonials",
-          label: "Testimonial",
-          hasMany: false,
-          required: false,
-          admin: {
-            width: "40%",
-          },
         },
       ],
     },

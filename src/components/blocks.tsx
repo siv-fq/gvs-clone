@@ -1,10 +1,11 @@
 import type { Page } from "@payload-types";
-import ContentMedia from "@/components/content-media";
-import Faq from "@/components/faq";
-import TOC from "@/components/toc";
-import ImageGrid from "@/components/image-grid";
-import Testimonials from "@/components/testimonials";
-import HeaderCta from "@/components/header-cta";
+import ContentMedia from "@/components/blocks/content-media";
+import Faq from "@/components/blocks/faq";
+import TOC from "@/components/blocks/toc";
+import ImageGrid from "@/components/blocks/image-grid";
+import Testimonials from "@/components/blocks/testimonials";
+import HeaderCta from "@/components/blocks/header-cta";
+import RichText from "@/components/blocks/rich-text";
 
 export function RenderBlocks({
   blocks,
@@ -36,8 +37,10 @@ export function RenderBlocks({
             return <TOC block={block} key={index} />;
           case "headerCta":
             return <HeaderCta block={block} key={index} />;
+          case "richText":
+            return <RichText content={block.content} key={index} />;
           default:
-            return <div key={index}>Unknown block type: {block.blockType}</div>;
+            return <div key={index}>Unknown block type</div>;
         }
       })}
     </>

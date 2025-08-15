@@ -1,6 +1,6 @@
 import { RefreshRouteOnSave } from "@/components/payload/refresh-route-on-save";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 import { notFound } from "next/navigation";
 import { RenderBlocks } from "@/components/blocks";
 import { getPayload } from "payload";
@@ -15,23 +15,18 @@ export default async function LandingPage({
   const isDraft = draft === "true";
   const payload = await getPayload({ config });
 
-  const result = await payload.find({
-    collection: "pages",
-    where: {
-      slug: {
-        equals: "home",
-      },
-    },
-    depth: 2,
-    limit: 1,
-    draft: isDraft,
-  });
+  const [result, nav] = await Promise.all([
+    payload.find({
+      collection: "pages",
+      where: { slug: { equals: "home" } },
+      depth: 2,
+      limit: 1,
+      draft: isDraft,
+    }),
+    payload.findGlobal({ slug: "navigation" }),
+  ]);
 
   const page = result.docs[0];
-  const nav = await payload.findGlobal({
-    slug: "navigation",
-  });
-  const siteSettings = await payload.findGlobal({ slug: "site-settings" });
 
   if (!page) return notFound();
 
@@ -40,7 +35,6 @@ export default async function LandingPage({
       <Header
         showHeaderOnLeft={page.showHeaderOnLeft}
         headerLinks={nav.headerLinks || []}
-        siteName={siteSettings.branding?.siteName || ""}
       />
       <main className={`flex flex-col row-start-2 items-center sm:items-start`}>
         {isDraft && <RefreshRouteOnSave />}
@@ -51,11 +45,7 @@ export default async function LandingPage({
           />
         ) : null}
       </main>
-      <Footer
-        footerLinks={nav.footerLinks || []}
-        siteName={siteSettings.branding?.siteName || ""}
-        email={siteSettings.contactUs?.email || ""}
-      />
+      <Footer footerLinks={nav.footerLinks || []} />
     </>
   );
 }
