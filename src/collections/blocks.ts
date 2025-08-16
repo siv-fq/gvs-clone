@@ -218,23 +218,25 @@ export const ImageGridBlock: Block = {
               name: "title",
               type: "text",
               admin: {
-                width: "30%",
+                width: "40%",
               },
             },
             {
               name: "content",
               type: "textarea",
               admin: {
-                width: "40%",
+                width: "60%",
               },
             },
             {
-              name: "image",
+              name: "media",
+              label: "Images",
               type: "upload",
               relationTo: "media",
               required: true,
+              hasMany: true,
               admin: {
-                width: "30%",
+                width: "100%",
               },
             },
           ],
@@ -506,6 +508,54 @@ export const ContentMediaBlock: Block = {
               admin: {
                 width: "100%",
               },
+            },
+            {
+              name: "moveTwoColumnsToMedia",
+              label: "Move the two-column list to the media area",
+              type: "checkbox",
+              defaultValue: false,
+              admin: {
+                width: "30%",
+              },
+            },
+            {
+              name: "twoColumnsListHeading",
+              label: "Heading for two column list",
+              type: "text",
+              admin: {
+                width: "70%",
+              },
+            },
+          ],
+        },
+        {
+          name: "twoColumnList",
+          label: "Two Column List",
+          type: "array",
+          admin: {
+            width: "100%",
+          },
+          fields: [
+            {
+              type: "row",
+              fields: [
+                {
+                  name: "column1List",
+                  label: "Column 1",
+                  type: "text",
+                  admin: {
+                    width: "50%",
+                  },
+                },
+                {
+                  name: "column2List",
+                  label: "Column 2",
+                  type: "text",
+                  admin: {
+                    width: "50%",
+                  },
+                },
+              ],
             },
           ],
         },

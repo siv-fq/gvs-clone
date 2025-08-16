@@ -3,8 +3,8 @@ import Button from "@/components/widgets/button";
 import SectionHeader from "@/components/widgets/section-header";
 import SafeHTML from "@/components/safe-html";
 import clsx from "clsx";
-
 import type { Page, Media } from "@payload-types";
+
 type ImageGridBlock = Extract<
   NonNullable<Page["blocks"]>[number],
   { blockType: "imageGrid" }
@@ -66,8 +66,8 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
           )}
         >
           {items.map((item, index) => {
-            const media = item.image as Media;
             const content = item?.content || "";
+            const media = item.media;
             return (
               <div
                 className={clsx(
@@ -84,20 +84,40 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
                       "bg-white border-3 border-lightGray rounded-xl"
                   )}
                 >
-                  {media?.url && (
-                    <Image
-                      alt={media.alt ?? "Grid Image"}
-                      src={media.url}
-                      className={clsx(
-                        "object-cover",
-                        style == "card"
-                          ? "rounded-xl w-full aspect-3/2 object-cover"
-                          : "max-h-[160px] w-auto",
-                        alignment == "center" && "mx-auto"
-                      )}
-                      width={400}
-                      height={250}
-                    />
+                  {Array.isArray(media) && media.length > 0 && (
+                    <div className="flex">
+                      {media.map((image, index) => {
+                        const img = image as Media;
+                        return (
+                          img?.url && (
+                            <div
+                              className={clsx(
+                                "relative",
+                                style !== "icon" && "flex-1"
+                              )}
+                              key={img.id || index}
+                            >
+                              <Image
+                                alt={img.alt ?? "Grid Image"}
+                                src={img.url}
+                                className={clsx(
+                                  index > 0 && "pl-2",
+                                  style === "icon" && media.length > 1
+                                    ? "max-w-25 object-contain"
+                                    : "object-cover",
+                                  style === "card"
+                                    ? "rounded-xl w-full aspect-3/2"
+                                    : "max-h-[160px] w-auto",
+                                  alignment === "center" && "mx-auto"
+                                )}
+                                width={400}
+                                height={250}
+                              />
+                            </div>
+                          )
+                        );
+                      })}
+                    </div>
                   )}
                   <h3
                     className={clsx(
@@ -111,10 +131,9 @@ export default function ImageGrid({ block }: { block: ImageGridBlock }) {
                   {content != "" ? (
                     <div
                       className={clsx(
-                        "text-lg  font-medium",
+                        "pt-2 text-lg text-lightText font-medium",
                         alignment == "center" && "text-center",
-                        style == "card" && "text-primary",
-                        style == "normal" && "text-lightText"
+                        style == "card" && "text-primary"
                       )}
                     >
                       <SafeHTML html={content} />

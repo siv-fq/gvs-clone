@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import type { Media } from "@payload-types";
 import { RefreshRouteOnSave } from "@/components/payload/refresh-route-on-save";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -5,6 +7,20 @@ import { notFound } from "next/navigation";
 import { RenderBlocks } from "@/components/blocks";
 import { getPayload } from "payload";
 import config from "@payload-config";
+
+async function fetchPage(slug: string, draft: boolean) {
+  const payload = await getPayload({ config });
+
+  const pageRes = await payload.find({
+    collection: "pages",
+    where: { slug: { equals: slug } },
+    depth: 2,
+    limit: 1,
+    draft,
+  });
+
+  return { page: pageRes?.docs?.[0], payload };
+}
 
 export default async function LandingPage({
   params,
@@ -16,21 +32,10 @@ export default async function LandingPage({
   const [{ slug }, { draft }] = await Promise.all([params, searchParams]);
   const isDraft = draft === "true";
 
-  const payload = await getPayload({ config });
-  const [result, nav] = await Promise.all([
-    payload.find({
-      collection: "pages",
-      where: { slug: { equals: slug } },
-      depth: 2,
-      limit: 1,
-      draft: isDraft,
-    }),
-    payload.findGlobal({ slug: "navigation" }),
-  ]);
-
-  const page = result.docs[0];
-
+  const { page, payload } = await fetchPage(slug, isDraft);
   if (!page) return notFound();
+
+  const nav = await payload.findGlobal({ slug: "navigation" });
 
   return (
     <>
@@ -38,7 +43,7 @@ export default async function LandingPage({
         showHeaderOnLeft={page.showHeaderOnLeft}
         headerLinks={nav.headerLinks || []}
       />
-      <main className={`flex flex-col row-start-2 items-center sm:items-start`}>
+      <main className="flex flex-col row-start-2 items-center sm:items-start">
         {isDraft && <RefreshRouteOnSave />}
         {page.blocks?.length ? (
           <RenderBlocks
@@ -50,4 +55,32 @@ export default async function LandingPage({
       <Footer footerLinks={nav.footerLinks || []} />
     </>
   );
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ draft?: string }>;
+}): Promise<Metadata | undefined> {
+  const [{ slug }, { draft }] = await Promise.all([params, searchParams]);
+  const isDraft = draft === "true";
+
+  const { page } = await fetchPage(slug, isDraft);
+  if (!page) return undefined;
+
+  const ogImage = page.featuredImage as Media;
+
+  return {
+    title: page.title,
+    ...(page.metaDescription && {
+      description: page.metaDescription,
+    }),
+    ...(ogImage?.url && {
+      openGraph: {
+        images: [ogImage.url],
+      },
+    }),
+  };
 }

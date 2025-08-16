@@ -57,7 +57,7 @@ export const Pages: CollectionConfig = {
           type: "text",
           required: true,
           admin: {
-            width: "60%",
+            width: "50%",
           },
         },
         {
@@ -66,7 +66,25 @@ export const Pages: CollectionConfig = {
           required: true,
           unique: true,
           admin: {
-            width: "40%",
+            width: "50%",
+          },
+        },
+        {
+          name: "metaDescription",
+          type: "textarea",
+          label: "Meta description",
+          required: false,
+          admin: {
+            width: "50%",
+          },
+        },
+        {
+          name: "featuredImage",
+          label: "Featured Image (OG image for social sharing)",
+          type: "upload",
+          relationTo: "media",
+          admin: {
+            width: "50%",
           },
         },
         {
@@ -76,21 +94,6 @@ export const Pages: CollectionConfig = {
           defaultValue: false,
           admin: {
             width: "20%",
-          },
-        },
-        {
-          name: "featuredImage",
-          type: "upload",
-          relationTo: "media",
-          admin: {
-            width: "40%",
-          },
-        },
-        {
-          name: "publishedDate",
-          type: "date",
-          admin: {
-            width: "40%",
           },
         },
       ],

@@ -205,9 +205,9 @@ export interface Page {
   id: number;
   title: string;
   slug: string;
-  showHeaderOnLeft?: boolean | null;
+  metaDescription?: string | null;
   featuredImage?: (number | null) | Media;
-  publishedDate?: string | null;
+  showHeaderOnLeft?: boolean | null;
   blocks?:
     | (
         | {
@@ -225,7 +225,7 @@ export interface Page {
             items: {
               title?: string | null;
               content?: string | null;
-              image: number | Media;
+              media: (number | Media)[];
               id?: string | null;
             }[];
             cta?:
@@ -400,6 +400,15 @@ export interface Page {
               };
               [k: string]: unknown;
             };
+            moveTwoColumnsToMedia?: boolean | null;
+            twoColumnsListHeading?: string | null;
+            twoColumnList?:
+              | {
+                  column1List?: string | null;
+                  column2List?: string | null;
+                  id?: string | null;
+                }[]
+              | null;
             cta?:
               | {
                   text?: string | null;
@@ -656,9 +665,9 @@ export interface BlogsSelect<T extends boolean = true> {
 export interface PagesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  showHeaderOnLeft?: T;
+  metaDescription?: T;
   featuredImage?: T;
-  publishedDate?: T;
+  showHeaderOnLeft?: T;
   blocks?:
     | T
     | {
@@ -681,7 +690,7 @@ export interface PagesSelect<T extends boolean = true> {
                 | {
                     title?: T;
                     content?: T;
-                    image?: T;
+                    media?: T;
                     id?: T;
                   };
               cta?:
@@ -817,6 +826,15 @@ export interface PagesSelect<T extends boolean = true> {
               eyebrowHeading?: T;
               selectedTestimonials?: T;
               content?: T;
+              moveTwoColumnsToMedia?: T;
+              twoColumnsListHeading?: T;
+              twoColumnList?:
+                | T
+                | {
+                    column1List?: T;
+                    column2List?: T;
+                    id?: T;
+                  };
               cta?:
                 | T
                 | {
