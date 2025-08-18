@@ -1,6 +1,4 @@
-import type { Metadata } from "next";
 import type { Media } from "@payload-types";
-import { RefreshRouteOnSave } from "@/components/payload/refresh-route-on-save";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import { notFound } from "next/navigation";
@@ -24,13 +22,8 @@ async function fetchPage(draft: boolean) {
   return { page: pageRes?.docs?.[0], payload };
 }
 
-export default async function LandingPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ draft?: string }>;
-}) {
-  const { draft } = await searchParams;
-  const isDraft = draft === "true";
+export default async function LandingPage() {
+  const isDraft = false;
 
   const { page, payload } = await fetchPage(isDraft);
   if (!page) return notFound();
@@ -44,7 +37,6 @@ export default async function LandingPage({
         headerLinks={nav.headerLinks || []}
       />
       <main className="flex flex-col row-start-2 items-center sm:items-start">
-        {isDraft && <RefreshRouteOnSave />}
         {page.blocks?.length ? (
           <RenderBlocks
             blocks={page.blocks}
@@ -57,13 +49,8 @@ export default async function LandingPage({
   );
 }
 
-export async function generateMetadata({
-  searchParams,
-}: {
-  searchParams: Promise<{ draft?: string }>;
-}): Promise<Metadata | undefined> {
-  const { draft } = await searchParams;
-  const isDraft = draft === "true";
+export async function generateMetadata() {
+  const isDraft = false;
 
   const { page } = await fetchPage(isDraft);
   if (!page) return undefined;

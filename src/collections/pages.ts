@@ -123,7 +123,6 @@ export const Pages: CollectionConfig = {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
-                secret: process.env.REVALIDATE_SECRET,
                 slug: doc.slug,
               }),
             });
