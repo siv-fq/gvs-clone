@@ -37,13 +37,14 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteSettings = await payload.findGlobal({ slug: "site-settings" });
   const ogImage = siteSettings?.siteSEO?.ogImage as Media;
   return {
+    metadataBase: new URL(process.env.BLOB_BASE_URL!),
     title: "Greenvan Services",
     icons: {
       icon: "/greenvan-logo.svg",
     },
     description: siteSettings.siteSEO?.metaDescription || "Greenvan Services",
     openGraph: {
-      images: [ogImage?.url || "/default-og-image.jpg"],
+      images: [ogImage?.url || "/images/default-og-image.jpg"],
     },
   };
 }

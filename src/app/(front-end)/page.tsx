@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import type { Media } from "@payload-types";
 import { RefreshRouteOnSave } from "@/components/payload/refresh-route-on-save";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
@@ -6,6 +8,22 @@ import { RenderBlocks } from "@/components/blocks";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
+export const revalidate = false;
+
+async function fetchPage(draft: boolean) {
+  const payload = await getPayload({ config });
+
+  const pageRes = await payload.find({
+    collection: "pages",
+    where: { slug: { equals: "home" } },
+    depth: 2,
+    limit: 1,
+    draft,
+  });
+
+  return { page: pageRes?.docs?.[0], payload };
+}
+
 export default async function LandingPage({
   searchParams,
 }: {
@@ -13,22 +31,11 @@ export default async function LandingPage({
 }) {
   const { draft } = await searchParams;
   const isDraft = draft === "true";
-  const payload = await getPayload({ config });
 
-  const [result, nav] = await Promise.all([
-    payload.find({
-      collection: "pages",
-      where: { slug: { equals: "home" } },
-      depth: 2,
-      limit: 1,
-      draft: isDraft,
-    }),
-    payload.findGlobal({ slug: "navigation" }),
-  ]);
-
-  const page = result.docs[0];
-
+  const { page, payload } = await fetchPage(isDraft);
   if (!page) return notFound();
+
+  const nav = await payload.findGlobal({ slug: "navigation" });
 
   return (
     <>
@@ -36,7 +43,7 @@ export default async function LandingPage({
         showHeaderOnLeft={page.showHeaderOnLeft}
         headerLinks={nav.headerLinks || []}
       />
-      <main className={`flex flex-col row-start-2 items-center sm:items-start`}>
+      <main className="flex flex-col row-start-2 items-center sm:items-start">
         {isDraft && <RefreshRouteOnSave />}
         {page.blocks?.length ? (
           <RenderBlocks
@@ -48,4 +55,31 @@ export default async function LandingPage({
       <Footer footerLinks={nav.footerLinks || []} />
     </>
   );
+}
+
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ draft?: string }>;
+}): Promise<Metadata | undefined> {
+  const { draft } = await searchParams;
+  const isDraft = draft === "true";
+
+  const { page } = await fetchPage(isDraft);
+  if (!page) return undefined;
+
+  const ogImage = page.featuredImage as Media;
+
+  return {
+    metadataBase: new URL(process.env.BLOB_BASE_URL!),
+    title: page.title,
+    ...(page.metaDescription && {
+      description: page.metaDescription,
+    }),
+    ...(ogImage?.url && {
+      openGraph: {
+        images: [ogImage.url],
+      },
+    }),
+  };
 }

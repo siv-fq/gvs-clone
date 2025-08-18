@@ -5,6 +5,8 @@ import Footer from "@/components/layout/footer";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
+export const revalidate = false;
+
 export default async function NotFound() {
   const cta = {
     link: "/contact-us",

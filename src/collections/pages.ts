@@ -112,4 +112,28 @@ export const Pages: CollectionConfig = {
       ],
     },
   ],
+  hooks: {
+    afterChange: [
+      async ({ doc, operation }) => {
+        if (operation === "create" || operation === "update") {
+          try {
+            await fetch(`${process.env.SITE_URL}/api/revalidate`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                secret: process.env.REVALIDATE_SECRET,
+                slug: doc.slug,
+              }),
+            });
+
+            console.log(`Revalidation triggered for slug: ${doc.slug}`);
+          } catch (error) {
+            console.error("Revalidation failed:", error);
+          }
+        }
+      },
+    ],
+  },
 };

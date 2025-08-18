@@ -8,6 +8,9 @@ import { RenderBlocks } from "@/components/blocks";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
+export const dynamicParams = true;
+export const revalidate = false;
+
 async function fetchPage(slug: string, draft: boolean) {
   const payload = await getPayload({ config });
 
@@ -73,6 +76,7 @@ export async function generateMetadata({
   const ogImage = page.featuredImage as Media;
 
   return {
+    metadataBase: new URL(process.env.BLOB_BASE_URL!),
     title: page.title,
     ...(page.metaDescription && {
       description: page.metaDescription,
